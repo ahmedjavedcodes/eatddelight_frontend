@@ -15,7 +15,10 @@ export default function CheckoutPage() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
-      <h1 className="font-heading text-4xl font-extrabold text-foreground">Checkout</h1>
+      <span className="text-sm font-bold uppercase tracking-wide text-primary">
+        Review Order
+      </span>
+      <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground">Checkout</h1>
 
       <div className="mt-4 rounded-lg bg-tint p-4 text-sm text-foreground">
         Order submission isn&rsquo;t live yet &mdash; the backend&rsquo;s order

@@ -19,7 +19,7 @@ export default function SplitSection({
         <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
           {eyebrow}
         </span>
-        <h2 className="mt-2 font-heading text-3xl font-normal text-foreground">
+        <h2 className="mt-2 font-heading text-3xl font-semibold text-foreground">
           {title}
         </h2>
         <p className="mt-4 text-muted">{body}</p>

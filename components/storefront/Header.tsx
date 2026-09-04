@@ -42,8 +42,8 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-normal transition-colors hover:text-primary ${
-                  active ? "text-primary" : "text-primary-soft"
+                className={`text-sm font-semibold transition-colors hover:text-primary ${
+                  active ? "text-primary" : "text-black"
                 }`}
               >
                 {link.label}

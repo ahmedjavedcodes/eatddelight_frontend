@@ -52,10 +52,10 @@ export default function MenuBrowser({
           <button
             key={c.id}
             onClick={() => setActiveCategory(c.id)}
-            className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition ${
+            className={`shrink-0 sticky rounded-full px-4 py-1.5 text-sm font-medium transition ${
               activeCategory === c.id
-                ? "bg-tint text-primary-soft"
-                : "bg-black/5 text-muted"
+                ? "bg-primary text-white"
+                : " bg-tint text-black"
             }`}
           >
             {c.name}

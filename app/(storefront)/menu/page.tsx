@@ -18,7 +18,10 @@ export default async function MenuPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl text-center">
-        <h1 className="font-heading text-4xl font-medium text-primary-soft sm:text-5xl">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary">
+          Full Menu
+        </span>
+        <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground sm:text-5xl">
           Our À La Carte Menu
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">

@@ -13,10 +13,10 @@ export default function Testimonials() {
   if (REVIEWS.length === 0) {
     return (
       <section className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6 lg:px-8">
-        <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Community
         </span>
-        <h2 className="mt-2 font-heading text-3xl font-normal text-foreground sm:text-4xl">
+        <h2 className="mt-2 font-heading text-3xl font-semibold text-foreground sm:text-4xl">
           Small habits, real change.
         </h2>
         <p className="mt-4 text-muted">
@@ -30,11 +30,11 @@ export default function Testimonials() {
   const review = REVIEWS[index];
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6 lg:px-8">
-      <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+    <section className=" max-w-4xl px-4 py-14 text-left sm:px-6 lg:px-8">
+      <span className="text-sm font-bold uppercase tracking-wide text-primary">
         Community
       </span>
-      <h2 className="mt-2 font-heading text-3xl font-normal text-foreground sm:text-4xl">
+      <h2 className="mt-2 font-heading text-3xl font-semibold text-foreground sm:text-4xl">
         Small habits, real change.
       </h2>
 

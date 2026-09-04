@@ -27,7 +27,10 @@ export default function FavouritesPage() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-      <h1 className="font-heading text-4xl font-extrabold text-foreground">
+      <span className="text-sm font-bold uppercase tracking-wide text-primary">
+        Saved Items
+      </span>
+      <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground">
         Your Favourites
       </h1>
 

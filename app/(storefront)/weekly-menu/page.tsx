@@ -19,7 +19,10 @@ export default async function WeeklyMenuPage() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="text-center">
-        <h1 className="font-heading text-4xl font-medium text-primary-soft sm:text-5xl">
+        <span className="text-sm font-bold uppercase tracking-wide text-primary">
+          Daily Special
+        </span>
+        <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground sm:text-5xl">
           Menu Of The Day
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">

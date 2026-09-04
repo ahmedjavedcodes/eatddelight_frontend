@@ -30,10 +30,10 @@ export default function StorySection() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
         <div>
-          <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+          <span className="text-sm font-bold uppercase tracking-wide text-primary">
             Our Kitchen
           </span>
-          <h2 className="mt-2 font-heading text-3xl font-normal text-foreground sm:text-4xl">
+          <h2 className="mt-2 font-heading text-3xl font-semibold text-foreground sm:text-4xl">
             Every dish is made with care, from a real home kitchen.
           </h2>
           <div className="mt-6 divide-y divide-black/10 border-t border-black/10">

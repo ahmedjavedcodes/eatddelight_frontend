@@ -11,10 +11,10 @@ export default async function PopularDishes() {
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="flex items-end justify-between">
         <div>
-          <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+          <span className="text-sm font-bold uppercase tracking-wide text-primary">
             Menu
           </span>
-          <h2 className="mt-1 font-heading text-3xl font-normal text-foreground">
+          <h2 className="mt-1 font-heading text-3xl font-semibold text-foreground">
             Our Most Loved Dishes
           </h2>
         </div>

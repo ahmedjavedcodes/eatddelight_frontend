@@ -31,7 +31,7 @@ export default async function CustomOrdersPage() {
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Bespoke &amp; Subscription
         </span>
-        <h1 className="mt-2 font-heading text-4xl font-extrabold text-foreground sm:text-5xl">
+        <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground sm:text-5xl">
           Custom Orders
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">

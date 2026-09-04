@@ -52,16 +52,16 @@ export default function DayCard({
       </Link>
 
       <div className="min-w-0 flex-1">
-        <span className="text-xs font-extrabold uppercase tracking-wide text-foreground">
+        <span className="text-xs font-bold uppercase tracking-wide text-primary">
           {day}
         </span>
         <Link href={`/food/${food.id}`}>
-          <h3 className="mt-0.5 truncate font-heading font-bold text-foreground">
+          <h3 className="mt-0.5 truncate font-heading font-semibold text-foreground">
             {food.name}
           </h3>
         </Link>
         <div className="mt-1 flex items-center justify-between">
-          <span className="font-bold text-primary">{formatPrice(food.price)}</span>
+          <span className="font-semibold text-black">{formatPrice(food.price)}</span>
           <div className="flex items-center gap-2">
             <button
               aria-label="Toggle favourite"

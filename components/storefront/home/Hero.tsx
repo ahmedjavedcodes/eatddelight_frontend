@@ -21,7 +21,7 @@ export default async function Hero() {
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Delicious. Fresh. Made For You.
         </span>
-        <h1 className="mt-3 font-heading text-4xl font-normal leading-tight text-foreground sm:text-5xl">
+        <h1 className="mt-3 font-heading text-4xl font-medium leading-tight text-foreground sm:text-5xl">
           {firstLine}
           {secondLine && (
             <>
@@ -30,21 +30,21 @@ export default async function Hero() {
             </>
           )}
         </h1>
-        <p className="mt-5 max-w-md text-muted">
+        <p className="mt-5 max-w-md">
           A daily-changing menu and a full à la carte catalog, cooked fresh in
-          a real home kitchen and ready whenever you are &mdash; order at
+          a real home kitchen and ready whenever you are, order at
           least a day ahead.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/menu"
-            className="rounded-lg bg-tint px-6 py-3 font-semibold text-primary transition hover:bg-tint/70"
+            className="rounded-lg bg-tint px-6 py-3 font-semibold text-black transition hover:bg-tint/70"
           >
             Explore Menu →
           </Link>
           <Link
             href="/weekly-menu"
-            className="rounded-lg border border-primary px-6 py-3 font-semibold text-primary transition hover:bg-tint"
+            className="rounded-lg border border-primary px-6 py-3 font-semibold text-black transition hover:bg-tint"
           >
             Today&rsquo;s Special
           </Link>
