@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#fbdcea" />
+  <circle cx="200" cy="200" r="120" fill="#ffffff" stroke="#e91e8c" stroke-width="4" />
+  <circle cx="200" cy="200" r="90" fill="#fbdcea" />
+  <text x="200" y="210" font-family="sans-serif" font-size="20" fill="#e91e8c" text-anchor="middle">
+    Photo coming soon
+  </text>
+</svg>

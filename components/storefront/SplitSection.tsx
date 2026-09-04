@@ -1,0 +1,36 @@
+import Image from "next/image";
+
+export default function SplitSection({
+  eyebrow,
+  title,
+  body,
+  imageAlt,
+  reverse = false,
+}: {
+  eyebrow: string;
+  title: string;
+  body: string;
+  imageAlt: string;
+  reverse?: boolean;
+}) {
+  return (
+    <div className="grid gap-10 py-10 lg:grid-cols-2 lg:items-center">
+      <div className={reverse ? "lg:order-2" : ""}>
+        <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+          {eyebrow}
+        </span>
+        <h2 className="mt-2 font-heading text-3xl font-normal text-foreground">
+          {title}
+        </h2>
+        <p className="mt-4 text-muted">{body}</p>
+      </div>
+      <div
+        className={`relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl bg-tint ${
+          reverse ? "lg:order-1" : ""
+        }`}
+      >
+        <Image src="/hero-placeholder.svg" alt={imageAlt} fill className="object-cover" />
+      </div>
+    </div>
+  );
+}

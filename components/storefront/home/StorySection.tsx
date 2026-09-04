@@ -1,0 +1,90 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { Minus, Plus } from "lucide-react";
+
+const POINTS = [
+  {
+    title: "Fresh Ingredients",
+    detail: "Sourced daily and prepped the same day your order is cooked.",
+  },
+  {
+    title: "Cooked To Order",
+    detail: "Nothing sits pre-made — every dish is prepared after you order.",
+  },
+  {
+    title: "Home-Style Recipes",
+    detail: "Family recipes, not a restaurant menu copied from elsewhere.",
+  },
+  {
+    title: "Hygienic Kitchen",
+    detail: "Prepared in a clean, careful home kitchen from start to finish.",
+  },
+];
+
+export default function StorySection() {
+  const [open, setOpen] = useState(0);
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
+            Our Kitchen
+          </span>
+          <h2 className="mt-2 font-heading text-3xl font-normal text-foreground sm:text-4xl">
+            Every dish is made with care, from a real home kitchen.
+          </h2>
+          <div className="mt-6 divide-y divide-black/10 border-t border-black/10">
+            {POINTS.map((point, i) => {
+              const isOpen = open === i;
+              return (
+                <div key={point.title} className="py-4">
+                  <button
+                    onClick={() => setOpen(isOpen ? -1 : i)}
+                    className="flex w-full items-center justify-between text-left"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="text-xs text-muted">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="font-heading font-medium text-foreground">
+                        {point.title}
+                      </span>
+                    </span>
+                    <span className="text-muted">
+                      {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <p className="mt-2 pl-8 text-sm text-muted">{point.detail}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="relative mx-auto h-80 w-full max-w-md sm:h-96">
+          <div className="absolute right-0 top-0 h-64 w-64 overflow-hidden rounded-2xl bg-tint shadow-sm sm:h-72 sm:w-72">
+            <Image
+              src="/hero-placeholder.svg"
+              alt="Freshly prepared homemade food"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 h-40 w-40 overflow-hidden rounded-2xl border-4 border-background bg-tint shadow-sm sm:h-48 sm:w-48">
+            <Image
+              src="/hero-placeholder.svg"
+              alt="A dish being prepared"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

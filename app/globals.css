@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2efe6;
+  --foreground: #1a1a1a;
+
+  --color-primary: #e91e8c;
+  --color-primary-soft: #de5da3;
+  --color-primary-dark: #c21674;
+  --color-secondary: #ffffff;
+  --color-tint: #fbdcea;
+  --color-muted: #6b6b6b;
+  --color-gold: #d99a3d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-tint: var(--color-tint);
+  --color-muted: var(--color-muted);
+  --color-gold: var(--color-gold);
+
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter);
+
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
