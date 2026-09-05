@@ -56,8 +56,8 @@ export default function StorySection() {
                       <span className="font-heading font-medium text-foreground">
                         {point.title}
                       </span>
-                    </span>
-                    <span className="text-muted">
+                    </span> 
+                    <span className="text-muted bg-primary py-2 px-2 ">
                       {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                     </span>
                   </button>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FoodCard from "@/components/storefront/FoodCard";
+import HorizontalFoodScroll from "@/components/storefront/HorizontalFoodScroll";
 import { getFullMenu } from "@/lib/api/menu";
 
 export default async function MenuShowcase() {
@@ -47,12 +47,8 @@ export default async function MenuShowcase() {
 
       {/* Foods Horizontal Scroll */}
       {allFoods.length > 0 ? (
-        <div className="scrollbar-hide mt-8 flex gap-5 overflow-x-auto pb-2">
-          {allFoods.map((food) => (
-            <div key={food.id} className="w-[42vw] shrink-0 sm:w-56 lg:w-64">
-              <FoodCard food={food} />
-            </div>
-          ))}
+        <div className="mt-8">
+          <HorizontalFoodScroll foods={allFoods} />
         </div>
       ) : (
         <div className="mt-8 rounded-lg bg-tint p-8 text-center">

@@ -8,7 +8,7 @@ const REVIEWS = [
     quote:
       "The food is incredibly fresh and tasty. I've been ordering every week and it's become a staple in my diet. Highly recommend!",
     name: "Ayesha K.",
-    location: "Lahore",
+    location: "Karachi",
   },
   {
     quote:
@@ -20,25 +20,25 @@ const REVIEWS = [
     quote:
       "Daughter's Delight has spoiled me for regular food. The flavors are authentic and the portions are generous.",
     name: "Fatima S.",
-    location: "Islamabad",
+    location: "Karachi",
   },
   {
     quote:
       "Finally found a place that serves real homemade food. My whole family loves ordering from here. Keep up the great work!",
     name: "Ali R.",
-    location: "Lahore",
+    location: "Karachi",
   },
   {
     quote:
       "The consistency in quality is impressive. Every order is prepared with care. This is my go-to for quality meals.",
     name: "Zainab H.",
-    location: "Multan",
+    location: "Karachi",
   },
   {
     quote:
       "Authentic flavors that remind me of home cooking. I've recommended Daughter's Delight to all my friends.",
     name: "Saira N.",
-    location: "Rawalpindi",
+    location: "Karachi",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function PakistaniReviews() {
         </div>
 
         <div className="flex items-center">
-          <div className="w-full rounded-3xl bg-gray-50 p-8 shadow-sm">
+          <div className="w-full rounded-2xl bg-gray-100 p-6 shadow-sm">
             <Quote size={24} className="text-primary-soft" />
             <p className="mt-4 text-lg leading-relaxed text-foreground">
               {review.quote}
