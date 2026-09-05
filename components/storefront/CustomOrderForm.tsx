@@ -80,7 +80,7 @@ export default function CustomOrderForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={4}
-          placeholder="e.g. A custom birthday cake for 20 people, chocolate flavour…"
+          placeholder="e.g. A custom Chicken Karahi order to serve 5 people"
           className="mt-1 w-full rounded-lg border border-black/10 px-4 py-2.5 focus:border-primary focus:outline-none"
         />
       </div>
@@ -109,7 +109,7 @@ export default function CustomOrderForm({
           <input
             value={occasion}
             onChange={(e) => setOccasion(e.target.value)}
-            placeholder="e.g. Birthday"
+            placeholder="e.g. Event"
             className="mt-1 w-full rounded-lg border border-black/10 px-4 py-2.5 focus:border-primary focus:outline-none"
           />
         </div>

@@ -56,35 +56,8 @@ export default function MenuBrowser({
 
   return (
     <div>
-      {/* Category pills */}
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-        <button
-          onClick={() => setActiveCategory("all")}
-          className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-            activeCategory === "all"
-              ? "border-primary bg-primary text-white"
-              : "border-black/10 bg-white text-foreground hover:border-primary/40"
-          }`}
-        >
-          All
-        </button>
-        {categories.map((c) => (
-          <button
-            key={c.id}
-            onClick={() => setActiveCategory(c.id)}
-            className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-              activeCategory === c.id
-                ? "border-primary bg-primary text-white"
-                : "border-black/10 bg-white text-foreground hover:border-primary/40"
-            }`}
-          >
-            {c.name}
-          </button>
-        ))}
-      </div>
-
       {/* Search + Filters */}
-      <div className="relative mt-4 flex gap-3">
+      <div className="relative flex gap-3">
         <input
           type="search"
           placeholder="Search products…"
@@ -176,6 +149,33 @@ export default function MenuBrowser({
             </div>
           </div>
         )}
+      </div>
+
+      {/* Category pills */}
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <button
+          onClick={() => setActiveCategory("all")}
+          className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+            activeCategory === "all"
+              ? "border-primary bg-primary text-white"
+              : "border-black/10 bg-white text-foreground hover:border-primary/40"
+          }`}
+        >
+          All
+        </button>
+        {categories.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => setActiveCategory(c.id)}
+            className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
+              activeCategory === c.id
+                ? "border-primary bg-primary text-white"
+                : "border-black/10 bg-white text-foreground hover:border-primary/40"
+            }`}
+          >
+            {c.name}
+          </button>
+        ))}
       </div>
 
       {/* Products horizontal scroll */}
