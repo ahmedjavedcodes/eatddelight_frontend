@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
+import QuantityStepper from "@/components/storefront/QuantityStepper";
 import { cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
 
@@ -70,14 +71,9 @@ export default function CartPage() {
               </div>
 
               <div className="mt-3 flex items-center justify-between">
-                <input
-                  type="number"
-                  min={1}
+                <QuantityStepper
                   value={line.quantity}
-                  onChange={(e) =>
-                    setQuantity(line.foodId, Math.max(1, Number(e.target.value) || 1))
-                  }
-                  className="w-20 rounded-lg border border-black/10 px-3 py-1.5 focus:border-primary focus:outline-none"
+                  onChange={(next) => setQuantity(line.foodId, next)}
                 />
                 <span className="font-semibold text-foreground">
                   {formatPrice(cartLineTotal(line))}

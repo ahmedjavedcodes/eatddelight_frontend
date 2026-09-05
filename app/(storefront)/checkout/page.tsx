@@ -20,12 +20,6 @@ export default function CheckoutPage() {
       </span>
       <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground">Checkout</h1>
 
-      <div className="mt-4 rounded-lg bg-tint p-4 text-sm text-foreground">
-        Order submission isn&rsquo;t live yet. The backend&rsquo;s order
-        API is still being built. This page previews what checkout will look
-        like; the buttons below are disabled until it ships.
-      </div>
-
       <div className="mt-8">
         <h2 className="font-heading font-semibold text-foreground">
           Order Summary

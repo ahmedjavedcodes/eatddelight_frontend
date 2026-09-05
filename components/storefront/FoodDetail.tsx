@@ -7,6 +7,7 @@ import type { FoodDetail as FoodDetailType } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
+import QuantityStepper from "@/components/storefront/QuantityStepper";
 
 export default function FoodDetail({ food }: { food: FoodDetailType }) {
   const [quantity, setQuantity] = useState(food.min_order_quantity);
@@ -114,20 +115,11 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
         )}
 
         <div className="mt-6 flex items-center gap-3">
-          <label htmlFor="quantity" className="text-sm font-medium text-foreground">
-            Quantity
-          </label>
-          <input
-            id="quantity"
-            type="number"
-            min={food.min_order_quantity}
+          <span className="text-sm font-medium text-foreground">Quantity</span>
+          <QuantityStepper
             value={quantity}
-            onChange={(e) =>
-              setQuantity(
-                Math.max(food.min_order_quantity, Number(e.target.value) || food.min_order_quantity),
-              )
-            }
-            className="w-20 rounded-lg border border-black/10 px-3 py-2 focus:border-primary focus:outline-none"
+            min={food.min_order_quantity}
+            onChange={setQuantity}
           />
         </div>
 
