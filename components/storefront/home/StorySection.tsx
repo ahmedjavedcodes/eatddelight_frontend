@@ -47,7 +47,7 @@ export default function StorySection() {
                 <div key={point.title} className="py-4">
                   <button
                     onClick={() => setOpen(isOpen ? -1 : i)}
-                    className="flex w-full items-center justify-between text-left"
+                    className="group flex w-full items-center justify-between text-left"
                   >
                     <span className="flex items-center gap-3">
                       <span className="text-xs text-muted">
@@ -57,8 +57,14 @@ export default function StorySection() {
                         {point.title}
                       </span>
                     </span> 
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                      {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                    <span
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+                        isOpen
+                          ? "border-primary bg-primary text-white"
+                          : "border-black/15 bg-transparent text-muted group-hover:border-primary group-hover:text-primary"
+                      }`}
+                    >
+                      {isOpen ? <Minus size={10} /> : <Plus size={10} />}
                     </span>
                   </button>
                   {isOpen && (

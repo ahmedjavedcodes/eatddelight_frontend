@@ -38,13 +38,13 @@ export default async function Hero() {
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/menu"
-            className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark"
+            className="rounded-lg bg-primary px-5 py-3 font-semibold text-white transition hover:bg-primary-dark"
           >
             Explore Menu →
           </Link>
           <Link
             href="/weekly-menu"
-            className="rounded-lg border-2 border-primary px-6 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white"
+            className="rounded-lg border border-primary px-5 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white"
           >
             Today&rsquo;s Special
           </Link>
@@ -60,7 +60,7 @@ export default async function Hero() {
         </dl>
       </div>
 
-      <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-2xl bg-tint">
+      <div className="relative mx-auto aspect-square w-full bg-tint border-4 border-background shadow-md max-w-md overflow-hidden rounded-2xl">
         <Image
           src="/hero-image.png"
           alt="Daughter's Delight packaged homemade food"
