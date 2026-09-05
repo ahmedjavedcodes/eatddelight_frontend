@@ -5,12 +5,14 @@ export default function SplitSection({
   title,
   body,
   imageAlt,
+  imageSrc = "/hero-placeholder.svg",
   reverse = false,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   imageAlt: string;
+  imageSrc?: string;
   reverse?: boolean;
 }) {
   return (
@@ -29,7 +31,7 @@ export default function SplitSection({
           reverse ? "lg:order-1" : ""
         }`}
       >
-        <Image src="/hero-placeholder.svg" alt={imageAlt} fill className="object-cover" />
+        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
       </div>
     </div>
   );

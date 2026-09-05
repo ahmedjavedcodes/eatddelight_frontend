@@ -55,12 +55,14 @@ export default async function AboutPage() {
           title="A home kitchen, run with love."
           body="Daughter's Delight started as home-cooked meals made for family, and grew into a kitchen that now cooks for the neighbourhood too — every order still made the same way, from scratch, with care."
           imageAlt="The Daughter's Delight kitchen"
+          imageSrc="/about-1.png"
         />
         <SplitSection
           eyebrow="Our Mission"
           title="Bring homemade food to more tables."
           body="We want ordering food to feel like asking a family member to cook for you — fresh, generous, and made specifically for your order, not sitting under a heat lamp."
           imageAlt="A freshly prepared homemade dish"
+          imageSrc="/about-2.png"
           reverse
         />
         <SplitSection
@@ -68,6 +70,7 @@ export default async function AboutPage() {
           title="Homemade, made simple to order."
           body="As we grow, our promise stays the same: a rotating daily menu, a full à la carte catalog, and bespoke orders for the moments that need something special — all still cooked fresh, one order at a time."
           imageAlt="Ingredients for a homemade meal"
+          imageSrc="/about-3.png"
         />
       </section>
 
