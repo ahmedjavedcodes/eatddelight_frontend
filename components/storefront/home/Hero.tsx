@@ -4,7 +4,7 @@ import { getSettings } from "@/lib/api/settings";
 
 const TRUST_BADGES = [
   { label: "Fresh, Homemade" },
-  { label: "1-Day Advance Order" },
+  { label: "Advance Order" },
   { label: "Made With Love" },
   { label: "Available Daily" },
 ];

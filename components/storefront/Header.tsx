@@ -4,17 +4,15 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Heart, Menu, ShoppingBag, X } from "lucide-react";
-import Logo from "@/components/storefront/Logo";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/weekly-menu", label: "Weekly Menu" },
   { href: "/menu", label: "Menu" },
-  { href: "/custom-orders", label: "Custom Orders" },
+  { href: "/weekly-menu", label: "Weekly" },
+  { href: "/custom-orders", label: "Custom" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -26,81 +24,106 @@ export default function Header() {
   const favouriteCount = useFavouritesStore((s) => s.foodIds.length);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/5 bg-linear-to-b from-white to-background">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link href="/">
-          <Logo />
-        </Link>
+    <header className="sticky top-0 z-40 bg-background py-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between rounded-full bg-black/90 px-6 py-3 backdrop-blur">
+          {/* Logo */}
+          <Link href="/" className="shrink-0">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white font-bold text-sm">
+              D
+            </div>
+          </Link>
 
-        <nav className="hidden rounded-full bg-primary-soft/50 px-8 py-3 lg:flex lg:items-center lg:gap-8">
-          {NAV_LINKS.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-            return (
+          {/* Desktop Nav */}
+          <nav className="hidden flex-1 items-center justify-center gap-8 md:flex">
+            {NAV_LINKS.map((link) => {
+              const active =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    active ? "text-primary" : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right Section - Icons + Contact */}
+          <div className="flex items-center gap-4 md:gap-6">
+            <Link
+              href="/favourites"
+              aria-label="Favourites"
+              className="relative text-white/80 hover:text-white"
+            >
+              <Heart size={18} />
+              {favouriteCount > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
+                  {favouriteCount}
+                </span>
+              )}
+            </Link>
+            <Link
+              href="/cart"
+              aria-label="Cart"
+              className="relative text-white/80 hover:text-white"
+            >
+              <ShoppingBag size={18} />
+              {cartCount > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+
+            {/* Contact Button */}
+            <a
+              href="/contact"
+              className="hidden rounded-full bg-white px-4 py-1.5 text-xs font-medium text-black hover:bg-white/90 md:inline-block"
+            >
+              Contact
+            </a>
+
+            {/* Mobile Menu Button */}
+            <button
+              aria-label="Toggle menu"
+              className="text-white md:hidden"
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Nav */}
+        {open && (
+          <nav className="mt-3 flex flex-col gap-2 rounded-lg bg-white/95 p-4 md:hidden">
+            {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  active ? "text-primary font-semibold" : "text-black/60 hover:text-black"
-                }`}
+                className="px-3 py-2 text-sm font-medium text-black hover:text-primary"
+                onClick={() => setOpen(false)}
               >
                 {link.label}
               </Link>
-            );
-          })}
-        </nav>
-
-        <div className="flex items-center gap-6 lg:gap-8">
-          <Link
-            href="/favourites"
-            aria-label="Favourites"
-            className="relative text-foreground hover:text-primary"
-          >
-            <Heart size={20} />
-            {favouriteCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
-                {favouriteCount}
-              </span>
-            )}
-          </Link>
-          <Link
-            href="/cart"
-            aria-label="Cart"
-            className="relative text-foreground hover:text-primary"
-          >
-            <ShoppingBag size={20} />
-            {cartCount > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-          <button
-            aria-label="Toggle menu"
-            className="text-foreground lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <nav className="flex flex-col gap-1 border-t border-black/5 px-4 py-3 lg:hidden">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-normal text-primary-soft hover:bg-tint hover:text-primary"
+            ))}
+            <a
+              href="/contact"
+              className="mt-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white"
               onClick={() => setOpen(false)}
             >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+              Contact
+            </a>
+          </nav>
+        )}
+      </div>
     </header>
   );
 }

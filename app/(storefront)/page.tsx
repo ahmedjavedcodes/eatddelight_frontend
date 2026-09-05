@@ -10,6 +10,7 @@ export default function Home() {
     <>
       <Hero />
       <MenuShowcase />
+      <div className="border-t border-black/5"></div>
       <WeeklyMenuShowcase />
       <StorySection />
       <ReadyToOrder />
