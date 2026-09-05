@@ -4,12 +4,12 @@ import BookingsBox from "@/components/storefront/BookingsBox";
 import CustomOrderForm from "@/components/storefront/CustomOrderForm";
 import { getSettings } from "@/lib/api/settings";
 
-export const metadata: Metadata = { title: "Custom Orders — Daughter's Delight" };
+export const metadata: Metadata = { title: "Custom Orders | Daughter's Delight" };
 
 const STEPS = [
   {
     title: "Choose Your Sauce",
-    description: "Pick a sauce to pair with your main — swap it any day.",
+    description: "Pick a sauce to pair with your main, swap it any day.",
   },
   {
     title: "Choose Your Main",
@@ -36,7 +36,7 @@ export default async function CustomOrdersPage() {
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">
           Bespoke cakes, bulk catering, subscription meal plans, or anything
-          else outside the regular menu &mdash; tell us what you need and
+          else outside the regular menu. Tell us what you need and
           we&rsquo;ll take it from there.
         </p>
       </div>
@@ -81,7 +81,7 @@ export default async function CustomOrdersPage() {
             <CustomOrderForm whatsappNumber={settings.whatsapp_number} />
           ) : (
             <p className="text-sm text-muted">
-              WhatsApp ordering isn&rsquo;t available right now &mdash; please
+              WhatsApp ordering isn&rsquo;t available right now, please
               call us instead.
             </p>
           )}

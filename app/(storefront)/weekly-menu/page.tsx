@@ -4,7 +4,7 @@ import DayCard from "@/components/storefront/DayCard";
 import { getWeeklyMenu } from "@/lib/api/menu";
 import { todayDayOfWeek, weekdayLabel } from "@/lib/format";
 
-export const metadata: Metadata = { title: "Weekly Menu — Daughter's Delight" };
+export const metadata: Metadata = { title: "Weekly Menu | Daughter's Delight" };
 
 const NOTES = [
   "All items are single-serving portions",

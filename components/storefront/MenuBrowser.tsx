@@ -19,32 +19,39 @@ export default function MenuBrowser({
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [showFilters, setShowFilters] = useState(false);
 
-  const filteredFoods = useMemo(() => {
+  const filteredCategories = useMemo(() => {
     const query = search.trim().toLowerCase();
     const min = minPrice ? Number(minPrice) : null;
     const max = maxPrice ? Number(maxPrice) : null;
 
-    let foods = categories
-      .filter((c) => activeCategory === "all" || c.id === activeCategory)
-      .flatMap((c) => c.foods);
-
-    foods = foods.filter((f) => {
-      if (query && !f.name.toLowerCase().includes(query)) return false;
-      const price = Number(f.price);
-      if (min !== null && price < min) return false;
-      if (max !== null && price > max) return false;
-      return true;
-    });
-
-    if (sortBy === "price_asc") {
-      foods = [...foods].sort((a, b) => Number(a.price) - Number(b.price));
-    } else if (sortBy === "price_desc") {
-      foods = [...foods].sort((a, b) => Number(b.price) - Number(a.price));
-    } else if (sortBy === "name_asc") {
-      foods = [...foods].sort((a, b) => a.name.localeCompare(b.name));
+    function sortFoods(foods: typeof categories[number]["foods"]) {
+      if (sortBy === "price_asc") {
+        return [...foods].sort((a, b) => Number(a.price) - Number(b.price));
+      }
+      if (sortBy === "price_desc") {
+        return [...foods].sort((a, b) => Number(b.price) - Number(a.price));
+      }
+      if (sortBy === "name_asc") {
+        return [...foods].sort((a, b) => a.name.localeCompare(b.name));
+      }
+      return foods;
     }
 
-    return foods;
+    return categories
+      .filter((c) => activeCategory === "all" || c.id === activeCategory)
+      .map((c) => ({
+        ...c,
+        foods: sortFoods(
+          c.foods.filter((f) => {
+            if (query && !f.name.toLowerCase().includes(query)) return false;
+            const price = Number(f.price);
+            if (min !== null && price < min) return false;
+            if (max !== null && price > max) return false;
+            return true;
+          }),
+        ),
+      }))
+      .filter((c) => c.foods.length > 0);
   }, [categories, search, activeCategory, minPrice, maxPrice, sortBy]);
 
   function clearFilters() {
@@ -178,12 +185,27 @@ export default function MenuBrowser({
         ))}
       </div>
 
-      {/* Products horizontal scroll */}
-      {filteredFoods.length === 0 ? (
+      {/* Categories, each with its own horizontal scroll of products */}
+      {filteredCategories.length === 0 ? (
         <p className="mt-12 text-muted">No dishes match your search.</p>
       ) : (
         <div className="mt-8">
-          <HorizontalFoodScroll foods={filteredFoods} />
+          {filteredCategories.map((category, i) => (
+            <div key={category.id}>
+              {i > 0 && (
+                <div className="my-10 border-t-2 border-dotted border-primary/40" />
+              )}
+              <h2 className="font-heading text-xl font-semibold text-foreground">
+                {category.name}
+              </h2>
+              {category.description && (
+                <p className="mt-1 text-sm text-muted">{category.description}</p>
+              )}
+              <div className="mt-5">
+                <HorizontalFoodScroll foods={category.foods} />
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

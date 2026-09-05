@@ -56,7 +56,7 @@ export default function FoodCard({ food }: { food: Food }) {
       <button
         aria-label="Quick view"
         onClick={() => setShowQuickView(true)}
-        className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-foreground shadow-sm opacity-0 transition group-hover:opacity-100"
+        className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-foreground shadow-sm"
       >
         <Eye size={16} />
       </button>

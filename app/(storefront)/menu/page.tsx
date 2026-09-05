@@ -4,7 +4,7 @@ import MenuBrowser from "@/components/storefront/MenuBrowser";
 import OrderNotes from "@/components/storefront/OrderNotes";
 import { getFullMenu } from "@/lib/api/menu";
 
-export const metadata: Metadata = { title: "Menu — Daughter's Delight" };
+export const metadata: Metadata = { title: "Menu | Daughter's Delight" };
 
 export default async function MenuPage() {
   const categories = await getFullMenu().catch(() => []);
@@ -20,7 +20,7 @@ export default async function MenuPage() {
           Our À La Carte Menu
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted">
-          A larger catalog organized into categories &mdash; browse, search,
+          A larger catalog organized into categories. Browse, search,
           and add what you like to your cart.
         </p>
       </div>

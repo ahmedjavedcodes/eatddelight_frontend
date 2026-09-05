@@ -11,7 +11,7 @@ const POINTS = [
   },
   {
     title: "Cooked To Order",
-    detail: "Nothing sits pre-made — every dish is prepared after you order.",
+    detail: "Nothing sits pre-made. Every dish is prepared after you order.",
   },
   {
     title: "Home-Style Recipes",
@@ -57,7 +57,7 @@ export default function StorySection() {
                         {point.title}
                       </span>
                     </span> 
-                    <span className="text-muted bg-primary py-2 px-2 ">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white">
                       {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                     </span>
                   </button>

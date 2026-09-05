@@ -21,7 +21,7 @@ export default function CheckoutPage() {
       <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground">Checkout</h1>
 
       <div className="mt-4 rounded-lg bg-tint p-4 text-sm text-foreground">
-        Order submission isn&rsquo;t live yet &mdash; the backend&rsquo;s order
+        Order submission isn&rsquo;t live yet. The backend&rsquo;s order
         API is still being built. This page previews what checkout will look
         like; the buttons below are disabled until it ships.
       </div>
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
       </div>
 
       <div className="mt-8 rounded-lg bg-tint p-4 text-sm text-foreground">
-        Have a bespoke request &mdash; a custom cake, bulk catering, or a
+        Have a bespoke request such as a custom cake, bulk catering, or a
         subscription plan?{" "}
         <Link href="/custom-orders" className="font-bold text-primary underline">
           Tell us on the Custom Orders page →

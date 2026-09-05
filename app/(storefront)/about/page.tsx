@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { AtSign } from "lucide-react";
 import SplitSection from "@/components/storefront/SplitSection";
-import Testimonials from "@/components/storefront/home/Testimonials";
+import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
 import { getSettings } from "@/lib/api/settings";
 
-export const metadata: Metadata = { title: "About — Daughter's Delight" };
+export const metadata: Metadata = { title: "About | Daughter's Delight" };
 
 export default async function AboutPage() {
   const settings = await getSettings().catch(() => null);
@@ -20,7 +20,7 @@ export default async function AboutPage() {
         </h1>
         <p className="mt-6 whitespace-pre-line text-muted">
           {settings?.about_text ??
-            "Daughter's Delight is a home kitchen serving homemade meals with love — a rotating menu of the day alongside a full à la carte catalog, cooked fresh and ready whenever you are."}
+            "Daughter's Delight is a home kitchen serving homemade meals with love. A rotating menu of the day alongside a full à la carte catalog, cooked fresh and ready whenever you are."}
         </p>
 
         {settings?.opening_hours && (
@@ -53,14 +53,14 @@ export default async function AboutPage() {
         <SplitSection
           eyebrow="Our Story"
           title="A home kitchen, run with love."
-          body="Daughter's Delight started as home-cooked meals made for family, and grew into a kitchen that now cooks for the neighbourhood too — every order still made the same way, from scratch, with care."
+          body="Daughter's Delight started as home-cooked meals made for family, and grew into a kitchen that now cooks for the neighbourhood too. Every order is still made the same way, from scratch, with care."
           imageAlt="The Daughter's Delight kitchen"
           imageSrc="/about-1.png"
         />
         <SplitSection
           eyebrow="Our Mission"
           title="Bring homemade food to more tables."
-          body="We want ordering food to feel like asking a family member to cook for you — fresh, generous, and made specifically for your order, not sitting under a heat lamp."
+          body="We want ordering food to feel like asking a family member to cook for you: fresh, generous, and made specifically for your order, not sitting under a heat lamp."
           imageAlt="A freshly prepared homemade dish"
           imageSrc="/about-2.png"
           reverse
@@ -68,13 +68,13 @@ export default async function AboutPage() {
         <SplitSection
           eyebrow="Our Vision"
           title="Homemade, made simple to order."
-          body="As we grow, our promise stays the same: a rotating daily menu, a full à la carte catalog, and bespoke orders for the moments that need something special — all still cooked fresh, one order at a time."
+          body="As we grow, our promise stays the same: a rotating daily menu, a full à la carte catalog, and bespoke orders for the moments that need something special. All still cooked fresh, one order at a time."
           imageAlt="Ingredients for a homemade meal"
           imageSrc="/about-3.png"
         />
       </section>
 
-      <Testimonials />
+      <PakistaniReviews />
     </>
   );
 }

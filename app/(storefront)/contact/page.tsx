@@ -3,7 +3,7 @@ import { AtSign, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/storefront/ContactForm";
 import { getSettings, whatsappUrl } from "@/lib/api/settings";
 
-export const metadata: Metadata = { title: "Contact — Daughter's Delight" };
+export const metadata: Metadata = { title: "Contact | Daughter's Delight" };
 
 export default async function ContactPage() {
   const settings = await getSettings().catch(() => null);
