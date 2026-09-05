@@ -1,15 +1,19 @@
 import Link from "next/link";
 import FoodCard from "@/components/storefront/FoodCard";
-import { getFoods } from "@/lib/api/menu";
+import { getFullMenu } from "@/lib/api/menu";
 
 export default async function MenuShowcase() {
-  const foods = await getFoods({ available: true, limit: 4 }).catch(() => []);
+  const categories = await getFullMenu().catch(() => []);
 
-  if (foods.length === 0) return null;
+  // Flatten all foods from categories and limit to 8
+  const allFoods = categories
+    .flatMap((category) => category.foods)
+    .slice(0, 8);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-      <div className="flex items-end justify-between">
+      {/* Header */}
+      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <span className="text-sm font-bold uppercase tracking-wide text-primary">
             Menu
@@ -20,17 +24,45 @@ export default async function MenuShowcase() {
         </div>
         <Link
           href="/menu"
-          className="hidden text-sm font-semibold text-primary hover:underline sm:inline"
+          className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark"
         >
           View Full Menu →
         </Link>
       </div>
 
-      <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
-        {foods.map((food) => (
-          <FoodCard key={food.id} food={food} />
-        ))}
-      </div>
+      {/* Categories */}
+      {categories.length > 0 && (
+        <div className="mt-6 flex flex-wrap gap-2">
+          {categories.map((category) => (
+            <Link
+              key={category.id}
+              href={`/menu?category=${category.id}`}
+              className="rounded-full bg-tint px-4 py-2 text-sm font-medium text-black transition hover:bg-tint/70"
+            >
+              {category.name}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Foods Grid */}
+      {allFoods.length > 0 ? (
+        <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          {allFoods.map((food) => (
+            <FoodCard key={food.id} food={food} />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-8 rounded-lg bg-tint p-8 text-center">
+          <p className="text-muted">Menu items coming soon. Check back later!</p>
+          <Link
+            href="/menu"
+            className="mt-4 inline-block rounded-lg bg-primary px-6 py-3 font-semibold text-white hover:bg-primary-dark"
+          >
+            Browse Full Menu
+          </Link>
+        </div>
+      )}
     </section>
   );
 }
