@@ -1,40 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
 import FoodCard from "@/components/storefront/FoodCard";
-import { getFoods } from "@/lib/api/menu";
-import type { Food } from "@/lib/api/types";
 import { useFavouritesStore } from "@/lib/store/favourites";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
 export default function FavouritesPage() {
-  const foodIds = useFavouritesStore((s) => s.foodIds);
-  const hasFavourites = foodIds.length > 0;
-  const [allFoods, setAllFoods] = useState<Food[] | null>(null);
-  const [loadError, setLoadError] = useState(false);
-
-  useEffect(() => {
-    if (!hasFavourites) return;
-    let cancelled = false;
-    getFoods({ limit: 200 })
-      .then((foods) => {
-        if (cancelled) return;
-        setAllFoods(foods);
-        setLoadError(false);
-      })
-      .catch(() => {
-        if (!cancelled) setLoadError(true);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [hasFavourites]);
-
-  const foods = useMemo(() => {
-    if (foodIds.length === 0) return [];
-    if (allFoods === null) return null;
-    return allFoods.filter((f) => foodIds.includes(f.id));
-  }, [allFoods, foodIds]);
+  const hasMounted = useHasMounted();
+  const foods = useFavouritesStore((s) => s.foods);
+  const hasFavourites = hasMounted && foods.length > 0;
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -45,16 +19,13 @@ export default function FavouritesPage() {
         Your Favourites
       </h1>
 
-      {hasFavourites && loadError ? (
-        <div className="mt-10 text-center">
-          <p className="text-muted">
-            We couldn&rsquo;t load your saved dishes right now. Please check
-            your connection and try again.
-          </p>
+      {hasFavourites ? (
+        <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          {foods.map((food) => (
+            <FoodCard key={food.id} food={food} />
+          ))}
         </div>
-      ) : foods === null ? (
-        <p className="mt-10 text-muted">Loading…</p>
-      ) : foods.length === 0 ? (
+      ) : (
         <div className="mt-10 text-center">
           <p className="text-muted">
             You haven&rsquo;t saved any dishes yet. Tap the heart icon on any
@@ -66,12 +37,6 @@ export default function FavouritesPage() {
           >
             Explore Menu
           </Link>
-        </div>
-      ) : (
-        <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
-          {foods.map((food) => (
-            <FoodCard key={food.id} food={food} />
-          ))}
         </div>
       )}
     </section>

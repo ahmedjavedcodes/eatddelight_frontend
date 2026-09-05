@@ -23,7 +23,7 @@ export default function Header() {
   const rawCartCount = useCartStore((s) =>
     s.lines.reduce((sum, l) => sum + l.quantity, 0),
   );
-  const rawFavouriteCount = useFavouritesStore((s) => s.foodIds.length);
+  const rawFavouriteCount = useFavouritesStore((s) => s.foods.length);
   const cartCount = hasMounted ? rawCartCount : 0;
   const favouriteCount = hasMounted ? rawFavouriteCount : 0;
 

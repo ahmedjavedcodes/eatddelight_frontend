@@ -50,7 +50,7 @@ export default function FoodCard({ food }: { food: Food }) {
 
       <button
         aria-label="Toggle favourite"
-        onClick={() => toggleFavourite(food.id)}
+        onClick={() => toggleFavourite(food)}
         className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-primary shadow-sm"
       >
         <Heart size={16} fill={isFavourite ? "currentColor" : "none"} />

@@ -65,7 +65,7 @@ export default function DayCard({
           <div className="flex items-center gap-2">
             <button
               aria-label="Toggle favourite"
-              onClick={() => toggleFavourite(food.id)}
+              onClick={() => toggleFavourite(food)}
               className="text-primary"
             >
               <Heart size={16} fill={isFavourite ? "currentColor" : "none"} />

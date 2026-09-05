@@ -1,30 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
-import { getSettings, whatsappUrl } from "@/lib/api/settings";
-import type { SiteSettings } from "@/lib/api/types";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
 
 export default function CheckoutPage() {
   const lines = useCartStore((s) => s.lines);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [requestedDate, setRequestedDate] = useState("");
-  const [settings, setSettings] = useState<SiteSettings | null>(null);
-
-  useEffect(() => {
-    getSettings()
-      .then(setSettings)
-      .catch(() => setSettings(null));
-  }, []);
 
   const total = lines.reduce((sum, line) => sum + cartLineTotal(line), 0);
 
   function handleOrderOnWhatsApp() {
-    if (!settings?.whatsapp_number || lines.length === 0) return;
+    if (lines.length === 0) return;
 
     const orderLines = lines.map(
       (line) => `${line.quantity} x ${line.name} — ${formatPrice(cartLineTotal(line))}`,
@@ -41,7 +33,10 @@ export default function CheckoutPage() {
       requestedDate && `Requested date: ${requestedDate}`,
     ].filter(Boolean);
 
-    window.open(whatsappUrl(settings, messageParts.join("\n")), "_blank");
+    const message = encodeURIComponent(messageParts.join("\n"));
+    // Same-tab redirect (not a new tab) so the order lands as a draft in
+    // the WhatsApp chat and the user is taken straight there.
+    window.location.assign(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`);
   }
 
   return (
@@ -128,7 +123,7 @@ export default function CheckoutPage() {
 
       <button
         onClick={handleOrderOnWhatsApp}
-        disabled={lines.length === 0 || !settings?.whatsapp_number}
+        disabled={lines.length === 0}
         className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-center font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
       >
         <MessageCircle size={18} />
