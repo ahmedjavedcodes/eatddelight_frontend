@@ -62,8 +62,8 @@ export default async function Hero() {
 
       <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-full bg-tint">
         <Image
-          src="/hero-placeholder.svg"
-          alt="A homemade dish from Daughter's Delight"
+          src="/hero-image.png"
+          alt="Daughter's Delight packaged homemade food"
           fill
           className="object-cover"
           priority
