@@ -90,14 +90,14 @@ export default function PakistaniReviews() {
             <button
               aria-label="Previous review"
               onClick={goToPrevious}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:bg-tint active:scale-90"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:border-primary active:scale-90 active:bg-primary"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               aria-label="Next review"
               onClick={goToNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:bg-tint active:scale-90"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:border-primary active:scale-90 active:bg-primary"
             >
               <ChevronRight size={18} />
             </button>

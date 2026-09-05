@@ -1,17 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { MessageCircle } from "lucide-react";
 import { cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
+import { getSettings, whatsappUrl } from "@/lib/api/settings";
+import type { SiteSettings } from "@/lib/api/types";
 
 export default function CheckoutPage() {
   const lines = useCartStore((s) => s.lines);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [requestedDate, setRequestedDate] = useState("");
+  const [settings, setSettings] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    getSettings()
+      .then(setSettings)
+      .catch(() => setSettings(null));
+  }, []);
 
   const total = lines.reduce((sum, line) => sum + cartLineTotal(line), 0);
+
+  function handleOrderOnWhatsApp() {
+    if (!settings?.whatsapp_number || lines.length === 0) return;
+
+    const orderLines = lines.map(
+      (line) => `${line.quantity} x ${line.name} — ${formatPrice(cartLineTotal(line))}`,
+    );
+
+    const messageParts = [
+      "Hi! I'd like to place an order.",
+      "",
+      ...orderLines,
+      `Total: ${formatPrice(total)}`,
+      "",
+      name && `Name: ${name}`,
+      phone && `Phone: ${phone}`,
+      requestedDate && `Requested date: ${requestedDate}`,
+    ].filter(Boolean);
+
+    window.open(whatsappUrl(settings, messageParts.join("\n")), "_blank");
+  }
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
@@ -95,22 +126,14 @@ export default function CheckoutPage() {
         </Link>
       </div>
 
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <button
-          disabled
-          title="Order submission is not available yet"
-          className="flex-1 cursor-not-allowed rounded-lg bg-muted px-6 py-3 text-center font-semibold text-white"
-        >
-          Order on WhatsApp
-        </button>
-        <button
-          disabled
-          title="Invoice generation is not available yet"
-          className="flex-1 cursor-not-allowed rounded-lg border border-muted px-6 py-3 text-center font-semibold text-muted"
-        >
-          Download Invoice
-        </button>
-      </div>
+      <button
+        onClick={handleOrderOnWhatsApp}
+        disabled={lines.length === 0 || !settings?.whatsapp_number}
+        className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-center font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
+      >
+        <MessageCircle size={18} />
+        Order on WhatsApp
+      </button>
     </section>
   );
 }

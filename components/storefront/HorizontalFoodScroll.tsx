@@ -19,7 +19,6 @@ export default function HorizontalFoodScroll({ foods }: { foods: Food[] }) {
     <div className="relative">
       <div
         ref={scrollRef}
-        data-lenis-prevent
         className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide"
       >
         {foods.map((food) => (

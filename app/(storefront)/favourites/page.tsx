@@ -11,12 +11,23 @@ export default function FavouritesPage() {
   const foodIds = useFavouritesStore((s) => s.foodIds);
   const hasFavourites = foodIds.length > 0;
   const [allFoods, setAllFoods] = useState<Food[] | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     if (!hasFavourites) return;
+    let cancelled = false;
     getFoods({ limit: 200 })
-      .then(setAllFoods)
-      .catch(() => setAllFoods([]));
+      .then((foods) => {
+        if (cancelled) return;
+        setAllFoods(foods);
+        setLoadError(false);
+      })
+      .catch(() => {
+        if (!cancelled) setLoadError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [hasFavourites]);
 
   const foods = useMemo(() => {
@@ -34,7 +45,14 @@ export default function FavouritesPage() {
         Your Favourites
       </h1>
 
-      {foods === null ? (
+      {hasFavourites && loadError ? (
+        <div className="mt-10 text-center">
+          <p className="text-muted">
+            We couldn&rsquo;t load your saved dishes right now. Please check
+            your connection and try again.
+          </p>
+        </div>
+      ) : foods === null ? (
         <p className="mt-10 text-muted">Loading…</p>
       ) : foods.length === 0 ? (
         <div className="mt-10 text-center">

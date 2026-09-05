@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Heart, Menu, ShoppingBag, X } from "lucide-react";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -18,13 +19,16 @@ const NAV_LINKS = [
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const cartCount = useCartStore((s) =>
+  const hasMounted = useHasMounted();
+  const rawCartCount = useCartStore((s) =>
     s.lines.reduce((sum, l) => sum + l.quantity, 0),
   );
-  const favouriteCount = useFavouritesStore((s) => s.foodIds.length);
+  const rawFavouriteCount = useFavouritesStore((s) => s.foodIds.length);
+  const cartCount = hasMounted ? rawCartCount : 0;
+  const favouriteCount = hasMounted ? rawFavouriteCount : 0;
 
   return (
-    <header className="sticky top-0 z-40 bg-background py-4">
+    <header className="fixed inset-x-0 top-0 z-40 bg-background py-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between rounded-full bg-background px-6 py-3 shadow-lg ring-1 ring-black/5">
           {/* Logo */}

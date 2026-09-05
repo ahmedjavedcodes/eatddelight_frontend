@@ -9,9 +9,12 @@ import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
 import QuickViewModal from "@/components/storefront/QuickViewModal";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
 export default function FoodCard({ food }: { food: Food }) {
-  const isFavourite = useFavouritesStore((s) => s.isFavourite(food.id));
+  const hasMounted = useHasMounted();
+  const isFavouritePersisted = useFavouritesStore((s) => s.isFavourite(food.id));
+  const isFavourite = hasMounted && isFavouritePersisted;
   const toggleFavourite = useFavouritesStore((s) => s.toggle);
   const addItem = useCartStore((s) => s.addItem);
   const [showQuickView, setShowQuickView] = useState(false);

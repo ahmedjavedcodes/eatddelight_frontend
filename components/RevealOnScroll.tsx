@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import "@/lib/scrollConfig";
+import { getScrollContainer, onScrollReady } from "@/components/LocomotiveScrollProvider";
 
 export default function RevealOnScroll({
   children,
@@ -30,26 +29,36 @@ export default function RevealOnScroll({
     ).matches;
     if (prefersReducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          delay,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-    }, ref);
+    let ctx: gsap.Context | undefined;
 
-    return () => ctx.revert();
+    const unsubscribe = onScrollReady(() => {
+      if (!document.body.contains(el)) return;
+      const scroller = getScrollContainer() ?? undefined;
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              scroller,
+              start: "top 88%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
+      }, el);
+    });
+
+    return () => {
+      unsubscribe();
+      ctx?.revert();
+    };
   }, [delay, y]);
 
   return (

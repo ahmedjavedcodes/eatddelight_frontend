@@ -8,10 +8,7 @@ export default function CategoryPills({
   onChange: (value: number | "all") => void;
 }) {
   return (
-    <div
-      data-lenis-prevent
-      className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide"
-    >
+    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
       <button
         onClick={() => onChange("all")}
         className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
