@@ -26,7 +26,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 bg-background py-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between rounded-full bg-black/90 px-6 py-3 backdrop-blur">
+        <div className="flex items-center justify-between rounded-full bg-background px-6 py-3 shadow-lg ring-1 ring-black/5">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white font-bold text-sm">
@@ -46,7 +46,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm font-medium transition-colors ${
-                    active ? "text-primary" : "text-white/80 hover:text-white"
+                    active ? "text-primary font-semibold" : "text-black/60 hover:text-black"
                   }`}
                 >
                   {link.label}
@@ -60,7 +60,7 @@ export default function Header() {
             <Link
               href="/favourites"
               aria-label="Favourites"
-              className="relative text-white/80 hover:text-white"
+              className="relative text-foreground hover:text-primary"
             >
               <Heart size={18} />
               {favouriteCount > 0 && (
@@ -72,7 +72,7 @@ export default function Header() {
             <Link
               href="/cart"
               aria-label="Cart"
-              className="relative text-white/80 hover:text-white"
+              className="relative text-foreground hover:text-primary"
             >
               <ShoppingBag size={18} />
               {cartCount > 0 && (
@@ -85,7 +85,7 @@ export default function Header() {
             {/* Contact Button */}
             <a
               href="/contact"
-              className="hidden rounded-full bg-white px-4 py-1.5 text-xs font-medium text-black hover:bg-white/90 md:inline-block"
+              className="hidden rounded-full bg-primary px-4 py-1.5 text-xs font-medium text-white hover:bg-primary-dark md:inline-block"
             >
               Contact
             </a>
@@ -93,7 +93,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               aria-label="Toggle menu"
-              className="text-white md:hidden"
+              className="text-foreground md:hidden"
               onClick={() => setOpen((v) => !v)}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
