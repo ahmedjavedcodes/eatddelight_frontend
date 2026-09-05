@@ -10,7 +10,7 @@ export default function RevealOnScroll({
   children,
   className,
   delay = 0,
-  y = 40,
+  y = 20,
   as: Tag = "div",
 }: {
   children: React.ReactNode;
@@ -25,6 +25,11 @@ export default function RevealOnScroll({
     const el = ref.current;
     if (!el) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -32,9 +37,9 @@ export default function RevealOnScroll({
         {
           opacity: 1,
           y: 0,
-          duration: 0.9,
+          duration: 0.6,
           delay,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: el,
             start: "top 88%",

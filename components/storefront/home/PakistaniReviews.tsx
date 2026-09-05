@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import gsap from "gsap";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 const REVIEWS = [
@@ -45,6 +46,21 @@ const REVIEWS = [
 
 export default function PakistaniReviews() {
   const [index, setIndex] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!cardRef.current) return;
+    gsap.fromTo(
+      cardRef.current,
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+    );
+  }, [index]);
 
   const goToPrevious = () => {
     setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length);
@@ -74,14 +90,14 @@ export default function PakistaniReviews() {
             <button
               aria-label="Previous review"
               onClick={goToPrevious}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground hover:bg-tint"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:bg-tint active:scale-90"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               aria-label="Next review"
               onClick={goToNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground hover:bg-tint"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:bg-tint active:scale-90"
             >
               <ChevronRight size={18} />
             </button>
@@ -89,7 +105,7 @@ export default function PakistaniReviews() {
         </div>
 
         <div className="flex items-center">
-          <div className="w-full rounded-2xl bg-gray-100 p-6 shadow-sm">
+          <div ref={cardRef} className="w-full rounded-2xl bg-gray-100 p-6 shadow-sm">
             <Quote size={24} className="text-primary-soft" />
             <p className="mt-4 text-lg leading-relaxed text-foreground">
               {review.quote}

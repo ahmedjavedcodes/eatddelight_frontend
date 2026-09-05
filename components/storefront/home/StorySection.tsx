@@ -59,25 +59,35 @@ export default function StorySection() {
                       </span>
                     </span> 
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-300 ${
                         isOpen
                           ? "border-primary bg-primary text-white"
                           : "border-black/15 bg-transparent text-muted group-hover:border-primary group-hover:text-primary"
                       }`}
                     >
-                      {isOpen ? <Minus size={10} /> : <Plus size={10} />}
+                      <span
+                        className={`transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
+                      >
+                        {isOpen ? <Minus size={10} /> : <Plus size={10} />}
+                      </span>
                     </span>
                   </button>
-                  {isOpen && (
-                    <p className="mt-2 pl-8 text-sm text-muted">{point.detail}</p>
-                  )}
+                  <div
+                    className={`grid transition-[grid-template-rows] duration-300 ease-out ${
+                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="mt-2 pl-8 text-sm text-muted">{point.detail}</p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
           </div>
         </RevealOnScroll>
 
-        <RevealOnScroll delay={0.15} className="relative mx-auto h-80 w-full max-w-md sm:h-96">
+        <RevealOnScroll delay={0.1} className="relative mx-auto h-80 w-full max-w-md sm:h-96">
           <div className="absolute right-0 top-0 h-64 w-64 overflow-hidden rounded-2xl bg-tint shadow-sm sm:h-72 sm:w-72">
             <Image
               src="/kitchen-1.png"
