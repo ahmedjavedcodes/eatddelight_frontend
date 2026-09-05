@@ -26,13 +26,13 @@ export default function Header() {
   const favouriteCount = useFavouritesStore((s) => s.foodIds.length);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/5 bg-background">
+    <header className="sticky top-0 z-40 border-b border-black/5 bg-linear-to-b from-white to-background">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/">
           <Logo />
         </Link>
 
-        <nav className="hidden rounded-full bg-white px-8 py-3 lg:flex lg:items-center lg:gap-8">
+        <nav className="hidden rounded-full bg-primary-soft/50 px-8 py-3 lg:flex lg:items-center lg:gap-8">
           {NAV_LINKS.map((link) => {
             const active =
               link.href === "/"

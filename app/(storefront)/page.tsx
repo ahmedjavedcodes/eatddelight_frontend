@@ -1,19 +1,19 @@
 import Hero from "@/components/storefront/home/Hero";
-import PopularDishes from "@/components/storefront/home/PopularDishes";
-import MenuOfDaySpotlight from "@/components/storefront/home/MenuOfDaySpotlight";
+import MenuShowcase from "@/components/storefront/home/MenuShowcase";
+import WeeklyMenuShowcase from "@/components/storefront/home/WeeklyMenuShowcase";
 import StorySection from "@/components/storefront/home/StorySection";
 import ReadyToOrder from "@/components/storefront/home/ReadyToOrder";
-import Testimonials from "@/components/storefront/home/Testimonials";
+import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <PopularDishes />
-      <MenuOfDaySpotlight />
+      <MenuShowcase />
+      <WeeklyMenuShowcase />
       <StorySection />
       <ReadyToOrder />
-      <Testimonials />
+      <PakistaniReviews />
     </>
   );
 }

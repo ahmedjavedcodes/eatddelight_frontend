@@ -21,6 +21,10 @@ const POINTS = [
     title: "Hygienic Kitchen",
     detail: "Prepared in a clean, careful home kitchen from start to finish.",
   },
+  {
+    title: "Personal Touch",
+    detail: "Every order is handled with care and attention to quality.",
+  },
 ];
 
 export default function StorySection() {
@@ -69,16 +73,16 @@ export default function StorySection() {
         <div className="relative mx-auto h-80 w-full max-w-md sm:h-96">
           <div className="absolute right-0 top-0 h-64 w-64 overflow-hidden rounded-2xl bg-tint shadow-sm sm:h-72 sm:w-72">
             <Image
-              src="/hero-placeholder.svg"
-              alt="Freshly prepared homemade food"
+              src="/kitchen-1.png"
+              alt="Daughter's Delight kitchen in action"
               fill
               className="object-cover"
             />
           </div>
           <div className="absolute bottom-0 left-0 h-40 w-40 overflow-hidden rounded-2xl border-4 border-background bg-tint shadow-sm sm:h-48 sm:w-48">
             <Image
-              src="/hero-placeholder.svg"
-              alt="A dish being prepared"
+              src="/kitchen-2.png"
+              alt="Homemade food preparation"
               fill
               className="object-cover"
             />
