@@ -28,7 +28,7 @@ export default async function Footer() {
               href={`https://instagram.com/${settings.instagram_handle}`}
               target="_blank"
               rel="noreferrer"
-              className="mt-5 inline-flex font-semibold items-center gap-2 text-md text-primary-soft hover:text-primary"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary-soft hover:text-primary"
             >
               <AtSign size={18} />
               {settings.instagram_handle}
@@ -45,7 +45,7 @@ export default async function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-black hover:text-primary"
+                  className="text-sm font-medium text-foreground hover:text-primary"
                 >
                   {link.label}
                 </Link>

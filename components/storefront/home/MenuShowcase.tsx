@@ -1,15 +1,11 @@
 import Link from "next/link";
-import HorizontalFoodScroll from "@/components/storefront/HorizontalFoodScroll";
+import HomeMenuFilter from "@/components/storefront/home/HomeMenuFilter";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { getFullMenu } from "@/lib/api/menu";
 
 export default async function MenuShowcase() {
   const categories = await getFullMenu().catch(() => []);
-
-  // Flatten all foods from categories and limit to 8
-  const allFoods = categories
-    .flatMap((category) => category.foods)
-    .slice(0, 8);
+  const hasFoods = categories.some((c) => c.foods.length > 0);
 
   return (
     <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
@@ -31,25 +27,10 @@ export default async function MenuShowcase() {
         </Link>
       </div>
 
-      {/* Categories */}
-      {categories.length > 0 && (
-        <div className="mt-6 flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/menu?category=${category.id}`}
-              className="rounded-full bg-tint px-4 py-2 text-sm font-medium text-black transition hover:bg-tint/70"
-            >
-              {category.name}
-            </Link>
-          ))}
-        </div>
-      )}
-
-      {/* Foods Horizontal Scroll */}
-      {allFoods.length > 0 ? (
-        <div className="mt-8">
-          <HorizontalFoodScroll foods={allFoods} />
+      {/* Categories + foods, filterable */}
+      {hasFoods ? (
+        <div className="mt-6">
+          <HomeMenuFilter categories={categories} />
         </div>
       ) : (
         <div className="mt-8 rounded-lg bg-tint p-8 text-center">

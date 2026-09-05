@@ -54,7 +54,7 @@ export default async function WeeklyMenuPage() {
       </div>
 
       <div className="mt-8">
-        <h2 className="font-heading text-sm font-extrabold uppercase text-foreground">
+        <h2 className="font-heading text-sm font-medium uppercase text-foreground">
           Note
         </h2>
         <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted">

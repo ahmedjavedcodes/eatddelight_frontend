@@ -17,7 +17,11 @@ export default function HorizontalFoodScroll({ foods }: { foods: Food[] }) {
 
   return (
     <div className="relative">
-      <div ref={scrollRef} className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide">
+      <div
+        ref={scrollRef}
+        data-lenis-prevent
+        className="flex gap-5 overflow-x-auto pb-2 scrollbar-hide"
+      >
         {foods.map((food) => (
           <div key={food.id} className="w-[42vw] shrink-0 sm:w-56 lg:w-64">
             <FoodCard food={food} />

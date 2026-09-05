@@ -69,7 +69,7 @@ export default async function CustomOrdersPage() {
       </div>
 
       <div className="mt-12">
-        <h2 className="font-heading text-xl font-extrabold text-foreground">
+        <h2 className="font-heading text-xl font-semibold text-foreground">
           Tell Us What You Need
         </h2>
         <p className="mt-1 text-sm text-muted">

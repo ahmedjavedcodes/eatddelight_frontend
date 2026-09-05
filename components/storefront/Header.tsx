@@ -46,7 +46,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm font-medium transition-colors ${
-                    active ? "text-primary font-semibold" : "text-black/60 hover:text-black"
+                    active ? "text-primary font-semibold" : "text-foreground/60 hover:text-foreground"
                   }`}
                 >
                   {link.label}
@@ -108,7 +108,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-black hover:text-primary"
+                className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary"
                 onClick={() => setOpen(false)}
               >
                 {link.label}

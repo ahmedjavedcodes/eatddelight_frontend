@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import HorizontalFoodScroll from "@/components/storefront/HorizontalFoodScroll";
+import CategoryPills from "@/components/storefront/CategoryPills";
 import type { CategoryWithFoods } from "@/lib/api/types";
 
 type SortOption = "default" | "price_asc" | "price_desc" | "name_asc";
@@ -159,30 +160,12 @@ export default function MenuBrowser({
       </div>
 
       {/* Category pills */}
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-        <button
-          onClick={() => setActiveCategory("all")}
-          className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-            activeCategory === "all"
-              ? "border-primary bg-primary text-white"
-              : "border-black/10 bg-white text-foreground hover:border-primary/40"
-          }`}
-        >
-          All
-        </button>
-        {categories.map((c) => (
-          <button
-            key={c.id}
-            onClick={() => setActiveCategory(c.id)}
-            className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-              activeCategory === c.id
-                ? "border-primary bg-primary text-white"
-                : "border-black/10 bg-white text-foreground hover:border-primary/40"
-            }`}
-          >
-            {c.name}
-          </button>
-        ))}
+      <div className="mt-4">
+        <CategoryPills
+          categories={categories}
+          active={activeCategory}
+          onChange={setActiveCategory}
+        />
       </div>
 
       {/* Categories, each with its own horizontal scroll of products */}

@@ -61,7 +61,7 @@ export default function DayCard({
           </h3>
         </Link>
         <div className="mt-1 flex items-center justify-between">
-          <span className="font-semibold text-black">{formatPrice(food.price)}</span>
+          <span className="font-semibold text-foreground">{formatPrice(food.price)}</span>
           <div className="flex items-center gap-2">
             <button
               aria-label="Toggle favourite"

@@ -7,6 +7,7 @@ import { X } from "lucide-react";
 import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
+import { startLenis, stopLenis } from "@/components/SmoothScroll";
 
 export default function QuickViewModal({
   food,
@@ -23,9 +24,11 @@ export default function QuickViewModal({
     }
     document.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
+    stopLenis();
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
+      startLenis();
     };
   }, [onClose]);
 
