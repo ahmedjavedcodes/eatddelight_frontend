@@ -45,11 +45,13 @@ export default async function MenuShowcase() {
         </div>
       )}
 
-      {/* Foods Grid */}
+      {/* Foods Horizontal Scroll */}
       {allFoods.length > 0 ? (
-        <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+        <div className="scrollbar-hide mt-8 flex gap-5 overflow-x-auto pb-2">
           {allFoods.map((food) => (
-            <FoodCard key={food.id} food={food} />
+            <div key={food.id} className="w-[42vw] shrink-0 sm:w-56 lg:w-64">
+              <FoodCard food={food} />
+            </div>
           ))}
         </div>
       ) : (
