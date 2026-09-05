@@ -4,7 +4,7 @@ export default function Logo({ variant = "dark" }: { variant?: "dark" | "light" 
       <span className={variant === "dark" ? "text-foreground" : "text-white"}>
         Daughter&rsquo;s
       </span>
-      <span className="text-primary">Delight</span>
+      <span className="text-primary"> Delight</span>
     </span>
   );
 }

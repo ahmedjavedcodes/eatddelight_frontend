@@ -27,12 +27,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-black/5 bg-background">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <Link href="/">
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden rounded-full bg-white px-8 py-3 lg:flex lg:items-center lg:gap-8">
           {NAV_LINKS.map((link) => {
             const active =
               link.href === "/"
@@ -42,8 +42,8 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-semibold transition-colors hover:text-primary ${
-                  active ? "text-primary" : "text-black"
+                className={`text-sm font-medium transition-colors ${
+                  active ? "text-primary font-semibold" : "text-black/60 hover:text-black"
                 }`}
               >
                 {link.label}
@@ -52,13 +52,13 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6 lg:gap-8">
           <Link
             href="/favourites"
             aria-label="Favourites"
             className="relative text-foreground hover:text-primary"
           >
-            <Heart size={22} />
+            <Heart size={20} />
             {favouriteCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
                 {favouriteCount}
@@ -70,18 +70,12 @@ export default function Header() {
             aria-label="Cart"
             className="relative text-foreground hover:text-primary"
           >
-            <ShoppingBag size={22} />
+            <ShoppingBag size={20} />
             {cartCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white">
                 {cartCount}
               </span>
             )}
-          </Link>
-          <Link
-            href="/menu"
-            className="hidden rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-dark sm:inline-block"
-          >
-            View Menu
           </Link>
           <button
             aria-label="Toggle menu"
