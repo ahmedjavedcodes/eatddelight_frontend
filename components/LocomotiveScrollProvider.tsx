@@ -24,6 +24,11 @@ export function getScrollContainer(): HTMLElement | null {
   return containerElement;
 }
 
+/** The live Locomotive Scroll instance, once ready. */
+export function getScrollInstance(): LocomotiveScroll | null {
+  return scrollInstance;
+}
+
 /**
  * Runs `callback` once the Locomotive Scroll instance and its ScrollTrigger
  * proxy are set up. Needed because React mounts child effects before parent

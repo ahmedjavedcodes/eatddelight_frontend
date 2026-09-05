@@ -16,7 +16,7 @@ export default function StorefrontLayout({
           the header were a descendant of it. */}
       <Header />
       <LocomotiveScrollProvider>
-        <div className="flex min-h-full flex-col pt-28">
+        <div className="flex min-h-full flex-col pt-20">
           <main className="flex-1">
             <PageTransition>{children}</PageTransition>
           </main>

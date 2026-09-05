@@ -17,7 +17,7 @@ export default async function Footer() {
 
   return (
     <footer className="border-t border-black/5 bg-background">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 md:grid-cols-3 lg:px-8">
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-sm text-muted">

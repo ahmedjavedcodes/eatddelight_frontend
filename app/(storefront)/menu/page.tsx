@@ -10,7 +10,7 @@ export default async function MenuPage() {
   const categories = await getFullMenu().catch(() => []);
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header and description */}
       <div className="mx-auto max-w-3xl text-center">
         <span className="text-sm font-bold uppercase tracking-wide text-primary">

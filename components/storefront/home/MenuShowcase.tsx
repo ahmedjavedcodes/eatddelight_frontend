@@ -8,7 +8,7 @@ export default async function MenuShowcase() {
   const hasFoods = categories.some((c) => c.foods.length > 0);
 
   return (
-    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>

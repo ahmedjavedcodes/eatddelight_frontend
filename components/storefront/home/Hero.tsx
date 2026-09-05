@@ -17,7 +17,7 @@ export default async function Hero() {
   const secondLine = rest.join(", ");
 
   return (
-    <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
+    <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-14">
       <RevealOnScroll>
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Delicious. Fresh. Made For You.

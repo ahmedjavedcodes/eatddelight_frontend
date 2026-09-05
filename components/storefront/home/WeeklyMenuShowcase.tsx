@@ -13,7 +13,7 @@ export default async function WeeklyMenuShowcase() {
   const todayMenu = weeklyMenu.find((entry) => entry.day_of_week === today);
 
   return (
-    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="flex items-end justify-between">
         <div>
           <span className="text-sm font-bold uppercase tracking-wide text-primary">

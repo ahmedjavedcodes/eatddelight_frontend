@@ -46,7 +46,7 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
   }
 
   return (
-    <section className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <section className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-tint">
         {food.image_url ? (
           <Image src={food.image_url} alt={food.name} fill className="object-cover" />

@@ -9,7 +9,7 @@ export default async function ContactPage() {
   const settings = await getSettings().catch(() => null);
 
   return (
-    <section className="mx-auto grid max-w-5xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8">
+    <section className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:px-8">
       <div>
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Get In Touch
