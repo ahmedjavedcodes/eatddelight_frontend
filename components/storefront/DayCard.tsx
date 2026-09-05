@@ -56,7 +56,7 @@ export default function DayCard({
           {day}
         </span>
         <Link href={`/food/${food.id}`}>
-          <h3 className="mt-0.5 truncate font-heading font-semibold text-foreground">
+          <h3 className="mt-0.5 font-heading font-semibold text-foreground">
             {food.name}
           </h3>
         </Link>
