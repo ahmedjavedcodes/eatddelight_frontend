@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HorizontalFoodScroll from "@/components/storefront/HorizontalFoodScroll";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { getFullMenu } from "@/lib/api/menu";
 
 export default async function MenuShowcase() {
@@ -11,7 +12,7 @@ export default async function MenuShowcase() {
     .slice(0, 8);
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
@@ -61,6 +62,6 @@ export default async function MenuShowcase() {
           </Link>
         </div>
       )}
-    </section>
+    </RevealOnScroll>
   );
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings } from "@/lib/api/settings";
 
 const TRUST_BADGES = [
@@ -17,7 +18,7 @@ export default async function Hero() {
 
   return (
     <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
-      <div>
+      <RevealOnScroll y={30}>
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Delicious. Fresh. Made For You.
         </span>
@@ -58,17 +59,19 @@ export default async function Hero() {
             </div>
           ))}
         </dl>
-      </div>
+      </RevealOnScroll>
 
-      <div className="relative mx-auto aspect-square w-full bg-tint border-4 border-background shadow-md max-w-md overflow-hidden rounded-2xl">
-        <Image
-          src="/hero-image.png"
-          alt="Daughter's Delight packaged homemade food"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+      <RevealOnScroll delay={0.15} y={30}>
+        <div className="relative mx-auto aspect-square w-full bg-tint border-4 border-background shadow-md max-w-md overflow-hidden rounded-2xl">
+          <Image
+            src="/hero-image.png"
+            alt="Daughter's Delight packaged homemade food"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      </RevealOnScroll>
     </section>
   );
 }

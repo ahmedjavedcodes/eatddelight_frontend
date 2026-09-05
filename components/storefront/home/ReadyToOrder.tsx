@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MessageCircle, ShoppingBag } from "lucide-react";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings, whatsappUrl } from "@/lib/api/settings";
 
 export default async function ReadyToOrder() {
@@ -7,7 +8,7 @@ export default async function ReadyToOrder() {
   if (!settings) return null;
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-tint px-8 py-8 sm:flex-row">
         <div className="flex items-center gap-4">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
@@ -41,6 +42,6 @@ export default async function ReadyToOrder() {
           </a>
         </div>
       </div>
-    </section>
+    </RevealOnScroll>
   );
 }

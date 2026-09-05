@@ -1,5 +1,6 @@
 import Link from "next/link";
 import DayCard from "@/components/storefront/DayCard";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { getWeeklyMenu } from "@/lib/api/menu";
 import { todayDayOfWeek, weekdayLabel } from "@/lib/format";
 
@@ -12,7 +13,7 @@ export default async function WeeklyMenuShowcase() {
   const todayMenu = weeklyMenu.find((entry) => entry.day_of_week === today);
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="flex items-end justify-between">
         <div>
           <span className="text-sm font-bold uppercase tracking-wide text-primary">
@@ -41,6 +42,6 @@ export default async function WeeklyMenuShowcase() {
       ) : (
         <p className="mt-8 text-muted">Today&rsquo;s special is not available right now.</p>
       )}
-    </section>
+    </RevealOnScroll>
   );
 }

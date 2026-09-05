@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 const REVIEWS = [
   {
@@ -56,7 +57,7 @@ export default function PakistaniReviews() {
   const review = REVIEWS[index];
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
           <span className="text-sm font-bold uppercase tracking-wide text-primary">
@@ -100,6 +101,6 @@ export default function PakistaniReviews() {
           </div>
         </div>
       </div>
-    </section>
+    </RevealOnScroll>
   );
 }

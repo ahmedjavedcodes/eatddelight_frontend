@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AtSign } from "lucide-react";
 import SplitSection from "@/components/storefront/SplitSection";
 import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
+import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings } from "@/lib/api/settings";
 
 export const metadata: Metadata = { title: "About | Daughter's Delight" };
@@ -11,7 +12,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <section className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+      <RevealOnScroll as="section" className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Our Story
         </span>
@@ -47,7 +48,7 @@ export default async function AboutPage() {
             Follow us on Instagram
           </a>
         )}
-      </section>
+      </RevealOnScroll>
 
       <section className="mx-auto max-w-6xl divide-y divide-black/10 px-4 sm:px-6 lg:px-8">
         <SplitSection

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 const POINTS = [
   {
@@ -33,7 +34,7 @@ export default function StorySection() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-        <div>
+        <RevealOnScroll>
           <span className="text-sm font-bold uppercase tracking-wide text-primary">
             Our Kitchen
           </span>
@@ -74,9 +75,9 @@ export default function StorySection() {
               );
             })}
           </div>
-        </div>
+        </RevealOnScroll>
 
-        <div className="relative mx-auto h-80 w-full max-w-md sm:h-96">
+        <RevealOnScroll delay={0.15} className="relative mx-auto h-80 w-full max-w-md sm:h-96">
           <div className="absolute right-0 top-0 h-64 w-64 overflow-hidden rounded-2xl bg-tint shadow-sm sm:h-72 sm:w-72">
             <Image
               src="/kitchen-1.png"
@@ -93,7 +94,7 @@ export default function StorySection() {
               className="object-cover"
             />
           </div>
-        </div>
+        </RevealOnScroll>
       </div>
     </section>
   );

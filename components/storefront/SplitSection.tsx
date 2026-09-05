@@ -1,4 +1,5 @@
 import Image from "next/image";
+import RevealOnScroll from "@/components/RevealOnScroll";
 
 export default function SplitSection({
   eyebrow,
@@ -17,7 +18,7 @@ export default function SplitSection({
 }) {
   return (
     <div className="grid gap-10 py-10 lg:grid-cols-2 lg:items-center">
-      <div className={reverse ? "lg:order-2" : ""}>
+      <RevealOnScroll className={reverse ? "lg:order-2" : ""}>
         <span className="text-sm font-bold uppercase tracking-wide text-primary-soft">
           {eyebrow}
         </span>
@@ -25,14 +26,15 @@ export default function SplitSection({
           {title}
         </h2>
         <p className="mt-4 text-muted">{body}</p>
-      </div>
-      <div
+      </RevealOnScroll>
+      <RevealOnScroll
+        delay={0.1}
         className={`relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl bg-tint ${
           reverse ? "lg:order-1" : ""
         }`}
       >
         <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
-      </div>
+      </RevealOnScroll>
     </div>
   );
 }
