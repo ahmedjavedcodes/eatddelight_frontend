@@ -10,20 +10,32 @@ export default function HorizontalFoodScroll({ foods }: { foods: Food[] }) {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  function checkScroll() {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  }
-
   useEffect(() => {
+    // The prev/next arrows are `hidden` below the `sm` breakpoint (they only
+    // render for mouse/trackpad users), so on touch devices there is no UI
+    // for this state to drive - tracking scroll position there is pure
+    // wasted work on every swipe, exactly where scroll jank is most visible.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
+    let frame = 0;
+    function checkScroll() {
+      if (!scrollRef.current) return;
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+    function onScroll() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(checkScroll);
+    }
+
     checkScroll();
     const element = scrollRef.current;
-    element?.addEventListener("scroll", checkScroll);
+    element?.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", checkScroll);
     return () => {
-      element?.removeEventListener("scroll", checkScroll);
+      cancelAnimationFrame(frame);
+      element?.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", checkScroll);
     };
   }, []);

@@ -39,13 +39,13 @@ export default async function HomeHero() {
         <div className="mt-7 flex flex-wrap gap-3">
           <Link
             href="/menu"
-            className="rounded-lg bg-primary px-5 py-3 font-semibold text-white transition hover:bg-primary-dark"
+            className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark sm:text-base"
           >
             Explore Menu →
           </Link>
           <Link
             href="/weekly-menu"
-            className="rounded-lg border border-primary px-5 py-3 font-semibold text-primary transition hover:bg-primary hover:text-white"
+            className="rounded-lg border border-primary px-5 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white sm:text-base"
           >
             Today&rsquo;s Special
           </Link>

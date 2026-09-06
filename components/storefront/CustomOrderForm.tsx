@@ -130,7 +130,7 @@ export default function CustomOrderForm({
 
       <button
         onClick={handleSend}
-        className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60"
+        className="rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:opacity-60 sm:text-base"
       >
         Send Request via WhatsApp
       </button>

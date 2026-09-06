@@ -57,6 +57,26 @@ export default function LocomotiveScrollProvider({
     const el = containerRef.current;
     if (!el) return;
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    // Touch/coarse-pointer devices (phones, tablets): skip the
+    // transform-based virtual scroll entirely. It's a well-known source of
+    // scroll jank on mobile (fighting native momentum scrolling) and, worse,
+    // its internal scroll position can desync from the real viewport after
+    // a route change - so instead of reduced motion, mobile gets plain,
+    // fast, reliable native scrolling and ScrollTrigger falls back to the
+    // window scroller automatically when no scroller proxy is registered.
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+
+    if (isTouchDevice || prefersReducedMotion) {
+      containerElement = null;
+      scrollInstance = null;
+      ready = true;
+      window.dispatchEvent(new Event(READY_EVENT));
+      return;
+    }
+
     let cancelled = false;
     let scroll: LocomotiveScroll | undefined;
     let refreshHandler: (() => void) | undefined;
@@ -64,13 +84,9 @@ export default function LocomotiveScrollProvider({
     import("locomotive-scroll").then(({ default: LocomotiveScrollCtor }) => {
       if (cancelled) return;
 
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-
       scroll = new LocomotiveScrollCtor({
         el,
-        smooth: !prefersReducedMotion,
+        smooth: true,
       });
       scrollInstance = scroll;
 

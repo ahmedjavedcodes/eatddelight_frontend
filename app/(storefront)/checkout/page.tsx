@@ -141,7 +141,7 @@ export default function CheckoutPage() {
       <button
         onClick={handleOrderOnWhatsApp}
         disabled={lines.length === 0}
-        className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-center font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
+        className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:text-base"
       >
         <MessageCircle size={18} />
         Order on WhatsApp

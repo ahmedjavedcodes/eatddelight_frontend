@@ -26,7 +26,7 @@ export default async function HomeReadyToOrder() {
         <div className="flex flex-wrap justify-center gap-3">
           <Link
             href="/cart"
-            className="inline-flex items-center gap-2 rounded-lg border border-primary px-6 py-3 font-semibold text-primary transition hover:bg-white"
+            className="inline-flex items-center gap-2 rounded-lg border border-primary px-6 py-3 text-sm font-semibold text-primary transition hover:bg-white sm:text-base"
           >
             <ShoppingBag size={18} />
             View Cart
@@ -35,7 +35,7 @@ export default async function HomeReadyToOrder() {
             href={whatsappUrl(settings, "Hi! I'd like to place an order.")}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark sm:text-base"
           >
             <MessageCircle size={18} />
             Chat On WhatsApp

@@ -51,7 +51,7 @@ export default function HomeStorySection() {
                     className="group flex w-full items-center justify-between text-left"
                   >
                     <span className="flex items-center gap-3">
-                      <span className="text-xs text-muted">
+                      <span className="text-xs text-primary font-semibold">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span className="font-heading font-medium text-foreground">

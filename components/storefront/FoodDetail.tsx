@@ -136,7 +136,7 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
         <button
           onClick={handleAdd}
           disabled={!food.is_available}
-          className="mt-6 w-full rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:w-auto"
+          className="mt-6 w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:w-auto sm:text-base"
         >
           {added ? "Added to Cart ✓" : "Add to Cart"}
         </button>

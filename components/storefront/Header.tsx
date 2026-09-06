@@ -107,30 +107,41 @@ export default function Header() {
         </div>
 
         {/* Mobile Nav */}
-        {open && (
-          <nav
-            id="mobile-nav"
-            className="mt-3 flex flex-col gap-2 rounded-lg bg-white/95 p-4 md:hidden"
-          >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary"
+        <div
+          className={`grid transition-[grid-template-rows] duration-300 ease-out md:hidden ${
+            open ? "mt-3 grid-rows-[1fr]" : "grid-rows-[0fr]"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <nav
+              id="mobile-nav"
+              aria-hidden={!open}
+              className={`flex flex-col gap-2 rounded-lg bg-white/95 p-4 transition-opacity duration-300 ${
+                open ? "opacity-100 delay-100" : "opacity-0"
+              }`}
+            >
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  tabIndex={open ? 0 : -1}
+                  className="px-3 py-2 text-sm font-medium text-foreground hover:text-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href="/contact"
+                tabIndex={open ? 0 : -1}
+                className="mt-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white"
                 onClick={() => setOpen(false)}
               >
-                {link.label}
-              </Link>
-            ))}
-            <a
-              href="/contact"
-              className="mt-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-white"
-              onClick={() => setOpen(false)}
-            >
-              Contact
-            </a>
-          </nav>
-        )}
+                Contact
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
     </header>
   );

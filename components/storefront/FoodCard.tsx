@@ -2,14 +2,22 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { useState } from "react";
-import { Eye, Heart } from "lucide-react";
+import { Eye, Heart, Plus } from "lucide-react";
 import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
-import QuickViewModal from "@/components/storefront/QuickViewModal";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
+
+// Code-split: only fetched when a user actually opens Quick View, instead
+// of shipping in every page's initial bundle just because a FoodCard grid
+// is on the page (menu, home, favourites all render many of these).
+const QuickViewModal = dynamic(
+  () => import("@/components/storefront/QuickViewModal"),
+  { ssr: false },
+);
 
 export default function FoodCard({ food }: { food: Food }) {
   const hasMounted = useHasMounted();
@@ -76,16 +84,17 @@ export default function FoodCard({ food }: { food: Food }) {
           </p>
         )}
         <div className="mt-3 flex items-center justify-between gap-2">
-          <span className="text-sm font-semibold text-primary">
+          <span className="min-w-0 truncate text-sm font-semibold text-primary">
             From {formatPrice(food.price)}
           </span>
           <button
             aria-label="Add to cart"
             onClick={handleAdd}
             disabled={!food.is_available}
-            className="shrink-0 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:h-auto sm:w-auto sm:px-4 sm:py-2"
           >
-            Add to Cart
+            <Plus size={16} className="sm:hidden" />
+            <span className="hidden text-xs font-semibold sm:inline">Add to Cart</span>
           </button>
         </div>
         {!food.is_available && (

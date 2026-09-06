@@ -21,7 +21,7 @@ export default async function HomeMenuShowcase() {
         </div>
         <Link
           href="/menu"
-          className="rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-dark"
+          className="hidden text-sm font-semibold text-primary hover:underline sm:inline"
         >
           View Full Menu →
         </Link>
@@ -37,7 +37,7 @@ export default async function HomeMenuShowcase() {
           <p className="text-muted">Menu items coming soon. Check back later!</p>
           <Link
             href="/menu"
-            className="mt-4 inline-block rounded-lg bg-primary px-6 py-3 font-semibold text-white hover:bg-primary-dark"
+            className="mt-4 inline-block rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary-dark sm:text-base"
           >
             Browse Full Menu
           </Link>
