@@ -12,20 +12,20 @@ export default async function AboutPage() {
 
   return (
     <>
-      <RevealOnScroll as="section" className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+      <RevealOnScroll as="section" className="mx-auto max-w-3xl px-4 py-10 text-center sm:px-6 lg:px-8">
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Our Story
         </span>
         <h1 className="mt-2 font-heading text-4xl font-semibold text-foreground sm:text-5xl">
           About Us
         </h1>
-        <p className="mt-6 whitespace-pre-line text-muted">
+        <p className="mx-auto mt-6 max-w-xl whitespace-pre-line text-muted">
           {settings?.about_text ??
             "Daughter's Delight is a home kitchen serving homemade meals with love. A rotating menu of the day alongside a full à la carte catalog, cooked fresh and ready whenever you are."}
         </p>
 
         {settings?.opening_hours && (
-          <div className="mt-8 rounded-xl bg-tint p-5">
+          <div className="mx-auto mt-8 max-w-sm rounded-xl bg-tint p-5">
             <h2 className="font-heading font-semibold text-foreground">
               Opening Hours
             </h2>
