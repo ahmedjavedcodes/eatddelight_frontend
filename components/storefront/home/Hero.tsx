@@ -65,8 +65,9 @@ export default async function Hero() {
         <div className="relative mx-auto aspect-square w-full bg-tint border-4 border-background shadow-md max-w-md overflow-hidden rounded-2xl">
           <Image
             src="/hero-image.png"
-            alt="Daughter's Delight packaged homemade food"
+            alt="Daughter's Delight packaged homemade food, ready for delivery in Karachi"
             fill
+            sizes="(min-width: 1024px) 448px, 100vw"
             className="object-cover"
             priority
           />

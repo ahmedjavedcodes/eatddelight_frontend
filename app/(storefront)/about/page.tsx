@@ -4,8 +4,14 @@ import SplitSection from "@/components/storefront/SplitSection";
 import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings } from "@/lib/api/settings";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "About | Daughter's Delight" };
+export const metadata: Metadata = buildMetadata({
+  title: "About Daughter's Delight | Our Karachi Kitchen Story",
+  description:
+    "Meet Daughter's Delight, a home kitchen in Karachi serving fresh, homemade meals daily. Learn our story, values, and how we cook for your family.",
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const settings = await getSettings().catch(() => null);

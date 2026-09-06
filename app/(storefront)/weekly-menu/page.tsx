@@ -3,8 +3,14 @@ import BookingsBox from "@/components/storefront/BookingsBox";
 import DayCard from "@/components/storefront/DayCard";
 import { getWeeklyMenu } from "@/lib/api/menu";
 import { todayDayOfWeek, weekdayLabel } from "@/lib/format";
+import { buildItemListSchema, buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Weekly Menu | Daughter's Delight" };
+export const metadata: Metadata = buildMetadata({
+  title: "Weekly Menu | Daily Homemade Specials Karachi",
+  description:
+    "See this week's Menu of the Day — one fresh, homemade dish per weekday. Single-serving specials from Daughter's Delight, ready with a day's notice.",
+  path: "/weekly-menu",
+});
 
 const NOTES = [
   "All items are single-serving portions",
@@ -15,9 +21,17 @@ const NOTES = [
 export default async function WeeklyMenuPage() {
   const weeklyMenu = await getWeeklyMenu().catch(() => []);
   const today = todayDayOfWeek();
+  const itemListSchema = buildItemListSchema(weeklyMenu.map((entry) => entry.food));
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+      {weeklyMenu.length > 0 && (
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        />
+      )}
       <div className="text-center">
         <span className="text-sm font-bold uppercase tracking-wide text-primary">
           Daily Special

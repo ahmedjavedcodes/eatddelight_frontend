@@ -46,7 +46,13 @@ export default function DayCard({
         className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-tint sm:h-24 sm:w-24"
       >
         {food.image_url ? (
-          <Image src={food.image_url} alt={food.name} fill className="object-cover" />
+          <Image
+            src={food.image_url}
+            alt={`${food.name} — homemade dish by Daughter's Delight`}
+            fill
+            sizes="(min-width: 640px) 96px, 80px"
+            className="object-cover"
+          />
         ) : (
           <div className="flex h-full items-center justify-center text-[10px] text-muted">
             No image

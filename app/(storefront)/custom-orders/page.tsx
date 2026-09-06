@@ -3,8 +3,14 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 import BookingsBox from "@/components/storefront/BookingsBox";
 import CustomOrderForm from "@/components/storefront/CustomOrderForm";
 import { getSettings } from "@/lib/api/settings";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Custom Orders | Daughter's Delight" };
+export const metadata: Metadata = buildMetadata({
+  title: "Custom Orders | Bespoke Catering in Karachi",
+  description:
+    "Planning an event? Daughter's Delight offers bespoke cakes, bulk catering, and subscription meal plans — home-cooked and made to your exact order.",
+  path: "/custom-orders",
+});
 
 const STEPS = [
   {

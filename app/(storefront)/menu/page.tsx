@@ -3,14 +3,29 @@ import BookingsBox from "@/components/storefront/BookingsBox";
 import MenuBrowser from "@/components/storefront/MenuBrowser";
 import OrderNotes from "@/components/storefront/OrderNotes";
 import { getFullMenu } from "@/lib/api/menu";
+import { buildItemListSchema, buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Menu | Daughter's Delight" };
+export const metadata: Metadata = buildMetadata({
+  title: "Full Menu | Order Homemade Food Online Karachi",
+  description:
+    "Browse our full à la carte menu of homemade dishes — Rice, Gravy, Chinese, and more. Fresh, cooked-to-order meals delivered across Karachi daily.",
+  path: "/menu",
+});
 
 export default async function MenuPage() {
   const categories = await getFullMenu().catch(() => []);
+  const allFoods = categories.flatMap((c) => c.foods);
+  const itemListSchema = buildItemListSchema(allFoods);
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {allFoods.length > 0 && (
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+        />
+      )}
       {/* Header and description */}
       <div className="mx-auto max-w-3xl text-center">
         <span className="text-sm font-bold uppercase tracking-wide text-primary">

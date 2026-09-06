@@ -91,16 +91,18 @@ export default function StorySection() {
           <div className="absolute right-0 top-0 h-64 w-64 overflow-hidden rounded-2xl bg-tint shadow-sm sm:h-72 sm:w-72">
             <Image
               src="/kitchen-1.png"
-              alt="Daughter's Delight kitchen in action"
+              alt="Daughter's Delight home kitchen in Karachi preparing homemade food"
               fill
+              sizes="(min-width: 640px) 288px, 256px"
               className="object-cover"
             />
           </div>
           <div className="absolute bottom-0 left-0 h-40 w-40 overflow-hidden rounded-2xl border-4 border-background bg-tint shadow-sm sm:h-48 sm:w-48">
             <Image
               src="/kitchen-2.png"
-              alt="Homemade food preparation"
+              alt="Fresh homemade food preparation at Daughter's Delight"
               fill
+              sizes="(min-width: 640px) 192px, 160px"
               className="object-cover"
             />
           </div>

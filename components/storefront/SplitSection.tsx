@@ -33,7 +33,13 @@ export default function SplitSection({
           reverse ? "lg:order-1" : ""
         }`}
       >
-        <Image src={imageSrc} alt={imageAlt} fill className="object-cover" />
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 1024px) 384px, 100vw"
+          className="object-cover"
+        />
       </RevealOnScroll>
     </div>
   );
