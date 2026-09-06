@@ -55,7 +55,7 @@ export default function CustomOrderForm({
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="text-sm font-medium text-foreground">Name</label>
+          <label className="block text-sm font-medium text-foreground">Name</label>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -63,7 +63,7 @@ export default function CustomOrderForm({
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-foreground">Phone</label>
+          <label className="block text-sm font-medium text-foreground">Phone</label>
           <input
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -73,7 +73,7 @@ export default function CustomOrderForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-foreground">
+        <label className="block text-sm font-medium text-foreground">
           What would you like? *
         </label>
         <textarea
@@ -87,7 +87,7 @@ export default function CustomOrderForm({
 
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
-          <label className="text-sm font-medium text-foreground">Servings</label>
+          <label className="block text-sm font-medium text-foreground">Servings</label>
           <input
             value={servings}
             onChange={(e) => setServings(e.target.value)}
@@ -96,7 +96,7 @@ export default function CustomOrderForm({
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-foreground">Budget Range</label>
+          <label className="block text-sm font-medium text-foreground">Budget Range</label>
           <input
             value={budgetRange}
             onChange={(e) => setBudgetRange(e.target.value)}
@@ -105,7 +105,7 @@ export default function CustomOrderForm({
           />
         </div>
         <div>
-          <label className="text-sm font-medium text-foreground">Occasion</label>
+          <label className="block text-sm font-medium text-foreground">Occasion</label>
           <input
             value={occasion}
             onChange={(e) => setOccasion(e.target.value)}
@@ -115,8 +115,8 @@ export default function CustomOrderForm({
         </div>
       </div>
 
-      <div className="mt-12">
-        <label className="text-sm font-medium text-foreground">Event Date</label>
+      <div className="mt-8">
+        <label className="block text-sm font-medium text-foreground">Event Date</label>
         <input
           type="date"
           min={minDate}
