@@ -58,6 +58,7 @@ export default async function AboutPage() {
           imageAlt="The Daughter's Delight kitchen"
           imageSrc="/about.png"
           reverse={false}
+          hideImage={true}
         />
         <SplitSection
           eyebrow="Our Mission"
