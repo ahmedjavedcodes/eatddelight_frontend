@@ -1,6 +1,6 @@
 import Header from "@/components/storefront/Header";
 import Footer from "@/components/storefront/Footer";
-import FloatingWhatsApp from "@/components/storefront/FloatingWhatsApp";
+import FloatingSocialButtons from "@/components/storefront/FloatingSocialButtons";
 import PageTransition from "@/components/PageTransition";
 import LocomotiveScrollProvider from "@/components/LocomotiveScrollProvider";
 
@@ -14,7 +14,7 @@ export default function StorefrontLayout({
       {/* Fixed outside the scroll container: Locomotive Scroll transforms
           the container below, which would break `fixed` positioning for
           any descendant (it becomes the containing block for `fixed`
-          elements). Header and the floating WhatsApp button both need to
+          elements). Header and the floating social buttons both need to
           stay pinned to the real viewport while scrolling. */}
       <Header />
       <LocomotiveScrollProvider>
@@ -25,7 +25,7 @@ export default function StorefrontLayout({
           <Footer />
         </div>
       </LocomotiveScrollProvider>
-      <FloatingWhatsApp />
+      <FloatingSocialButtons />
     </>
   );
 }

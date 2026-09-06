@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { AtSign, MessageCircle, Phone } from "lucide-react";
+import { AtSign, Phone } from "lucide-react";
 import Logo from "@/components/storefront/Logo";
+import InstagramIcon from "@/components/icons/InstagramIcon";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { getSettings, whatsappUrl } from "@/lib/api/settings";
 
 const QUICK_LINKS = [
@@ -67,6 +69,19 @@ export default async function Footer() {
             )}
             {settings?.opening_hours && <li>{settings.opening_hours}</li>}
             {settings?.address && <li>{settings.address}</li>}
+            {settings?.instagram_handle && (
+              <li>
+                <a
+                  href={`https://instagram.com/${settings.instagram_handle}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 hover:text-primary"
+                >
+                  <InstagramIcon size={16} />
+                  insta: {settings.instagram_handle}
+                </a>
+              </li>
+            )}
             {settings?.whatsapp_number && (
               <li>
                 <a
@@ -75,7 +90,7 @@ export default async function Footer() {
                   rel="noreferrer"
                   className="mt-1 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-semibold text-white hover:bg-primary-dark"
                 >
-                  <MessageCircle size={16} />
+                  <WhatsAppIcon size={16} />
                   Chat on WhatsApp
                 </a>
               </li>
