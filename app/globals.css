@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+
+  --color-primary: #ff5780;
+  --color-primary-soft: #ff7a9a;
+  --color-primary-dark: #e63d6a;
+  --color-secondary: #ffffff;
+  --color-tint: #f4d5dd;
+  --color-muted: #6b6b6b;
+  --color-gold: #d99a3d;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-tint: var(--color-tint);
+  --color-muted: var(--color-muted);
+  --color-gold: var(--color-gold);
+
+  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter);
+
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
