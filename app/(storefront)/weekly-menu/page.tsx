@@ -28,7 +28,6 @@ export default async function WeeklyMenuPage() {
       {weeklyMenu.length > 0 && (
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
         />
       )}

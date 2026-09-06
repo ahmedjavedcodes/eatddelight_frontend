@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -8,6 +7,7 @@ import { Heart, Menu, ShoppingBag, X } from "lucide-react";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
+import Logo from "./Logo";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -34,14 +34,7 @@ export default function Header() {
         <div className="flex items-center justify-between rounded-full bg-background px-6 py-3 shadow-lg ring-1 ring-black/5">
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <Image
-              src="/logo.png"
-              alt="Daughter's Delight logo"
-              width={72}
-              height={36}
-              className="h-9 w-auto object-contain"
-              priority
-            />
+          <Logo />
           </Link>
 
           {/* Desktop Nav */}
@@ -103,6 +96,8 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               aria-label="Toggle menu"
+              aria-expanded={open}
+              aria-controls="mobile-nav"
               className="text-foreground md:hidden"
               onClick={() => setOpen((v) => !v)}
             >
@@ -113,7 +108,10 @@ export default function Header() {
 
         {/* Mobile Nav */}
         {open && (
-          <nav className="mt-3 flex flex-col gap-2 rounded-lg bg-white/95 p-4 md:hidden">
+          <nav
+            id="mobile-nav"
+            className="mt-3 flex flex-col gap-2 rounded-lg bg-white/95 p-4 md:hidden"
+          >
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}

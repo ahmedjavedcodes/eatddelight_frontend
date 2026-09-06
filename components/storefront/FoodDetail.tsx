@@ -7,6 +7,7 @@ import type { FoodDetail as FoodDetailType } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 import QuantityStepper from "@/components/storefront/QuantityStepper";
 
 export default function FoodDetail({ food }: { food: FoodDetailType }) {
@@ -14,7 +15,9 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
   const [selectedAddOns, setSelectedAddOns] = useState<number[]>([]);
   const [added, setAdded] = useState(false);
 
-  const isFavourite = useFavouritesStore((s) => s.isFavourite(food.id));
+  const hasMounted = useHasMounted();
+  const isFavouritePersisted = useFavouritesStore((s) => s.isFavourite(food.id));
+  const isFavourite = hasMounted && isFavouritePersisted;
   const toggleFavourite = useFavouritesStore((s) => s.toggle);
   const addItem = useCartStore((s) => s.addItem);
 

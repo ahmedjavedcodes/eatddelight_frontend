@@ -73,6 +73,7 @@ export default function CartPage() {
               <div className="mt-3 flex items-center justify-between">
                 <QuantityStepper
                   value={line.quantity}
+                  min={line.minOrderQuantity}
                   onChange={(next) => setQuantity(line.foodId, next)}
                 />
                 <span className="font-semibold text-foreground">

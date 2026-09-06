@@ -68,7 +68,6 @@ export default async function FoodPage({ params }: FoodPageParams) {
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
       <FoodDetail food={food} />

@@ -12,8 +12,10 @@ export default function StorefrontLayout({
   return (
     <>
       {/* Fixed outside the scroll container: Locomotive Scroll transforms
-          the container below, which would break `fixed` positioning if
-          the header were a descendant of it. */}
+          the container below, which would break `fixed` positioning for
+          any descendant (it becomes the containing block for `fixed`
+          elements). Header and the floating WhatsApp button both need to
+          stay pinned to the real viewport while scrolling. */}
       <Header />
       <LocomotiveScrollProvider>
         <div className="flex min-h-full flex-col pt-20">
@@ -21,9 +23,9 @@ export default function StorefrontLayout({
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />
-          <FloatingWhatsApp />
         </div>
       </LocomotiveScrollProvider>
+      <FloatingWhatsApp />
     </>
   );
 }

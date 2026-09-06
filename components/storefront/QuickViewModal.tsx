@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
@@ -44,8 +45,17 @@ export default function QuickViewModal({
     onClose();
   }
 
-  return (
+  // Portaled to <body>: FoodCard (and this modal with it) renders inside
+  // the Locomotive Scroll container, which gets a `transform` applied for
+  // smooth-scroll simulation. A transformed ancestor becomes the containing
+  // block for `fixed` descendants, so without the portal this overlay would
+  // be positioned relative to the scrolled content instead of the real
+  // viewport.
+  return createPortal(
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${food.name} quick view`}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={onClose}
     >
@@ -119,6 +129,7 @@ export default function QuickViewModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

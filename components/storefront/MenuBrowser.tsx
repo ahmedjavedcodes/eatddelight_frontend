@@ -75,6 +75,8 @@ export default function MenuBrowser({
         />
         <button
           onClick={() => setShowFilters((v) => !v)}
+          aria-expanded={showFilters}
+          aria-controls="menu-filters-panel"
           className="relative flex shrink-0 items-center gap-2 rounded-full border border-primary px-5 py-3 text-sm font-semibold text-primary transition hover:bg-tint"
         >
           <SlidersHorizontal size={16} />
@@ -85,7 +87,10 @@ export default function MenuBrowser({
         </button>
 
         {showFilters && (
-          <div className="absolute right-0 top-full z-20 mt-2 w-72 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5">
+          <div
+            id="menu-filters-panel"
+            className="absolute right-0 top-full z-20 mt-2 w-72 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5"
+          >
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-xs font-medium text-muted">Min price</label>

@@ -57,12 +57,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full antialiased">
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
         {children}

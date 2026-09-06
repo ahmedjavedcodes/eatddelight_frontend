@@ -7,16 +7,29 @@ import { cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 
+function tomorrowIso(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().slice(0, 10);
+}
+
 export default function CheckoutPage() {
   const lines = useCartStore((s) => s.lines);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [requestedDate, setRequestedDate] = useState("");
+  const [dateError, setDateError] = useState<string | null>(null);
 
+  const minDate = tomorrowIso();
   const total = lines.reduce((sum, line) => sum + cartLineTotal(line), 0);
 
   function handleOrderOnWhatsApp() {
     if (lines.length === 0) return;
+    if (requestedDate && requestedDate < minDate) {
+      setDateError("Requested date must be at least one day from today.");
+      return;
+    }
+    setDateError(null);
 
     const orderLines = lines.map(
       (line) => `${line.quantity} x ${line.name} — ${formatPrice(cartLineTotal(line))}`,
@@ -106,10 +119,14 @@ export default function CheckoutPage() {
           <input
             id="date"
             type="date"
+            min={minDate}
             value={requestedDate}
             onChange={(e) => setRequestedDate(e.target.value)}
             className="mt-1 w-full rounded-lg border border-black/10 px-4 py-2.5 focus:border-primary focus:outline-none"
           />
+          {dateError && (
+            <p className="mt-1 text-xs font-medium text-primary">{dateError}</p>
+          )}
         </div>
       </div>
 
