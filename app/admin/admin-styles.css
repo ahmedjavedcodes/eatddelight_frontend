@@ -1,0 +1,194 @@
+/* Admin Panel Dark Theme Overrides */
+
+/* Override global background for admin routes */
+.admin-container {
+  background-color: #0f172a;
+  color: white;
+}
+
+/* Text color overrides */
+.admin-container h1,
+.admin-container h2,
+.admin-container h3,
+.admin-container p {
+  color: white;
+}
+
+.admin-container .text-gray-400 {
+  color: #9ca3af;
+}
+
+.admin-container .text-gray-300 {
+  color: #d1d5db;
+}
+
+.admin-container .text-muted {
+  color: #9ca3af;
+}
+
+/* Background color overrides */
+.admin-container .bg-gray-800 {
+  background-color: #1f2937;
+}
+
+.admin-container .bg-gray-700 {
+  background-color: #374151;
+}
+
+.admin-container .bg-gray-900 {
+  background-color: #111827;
+}
+
+.admin-container .bg-gray-950 {
+  background-color: #0f172a;
+}
+
+/* Border color overrides */
+.admin-container .border-gray-700 {
+  border-color: #374151;
+}
+
+.admin-container .border-gray-600 {
+  border-color: #4b5563;
+}
+
+/* Card styling */
+.admin-container .bg-red-900 {
+  background-color: #7f1d1d;
+}
+
+.admin-container .border-red-700 {
+  border-color: #b91c1c;
+}
+
+.admin-container .text-red-200 {
+  color: #fecaca;
+}
+
+/* Button styling */
+.admin-container .hover\:bg-gray-700:hover {
+  background-color: #374151;
+}
+
+.admin-container .hover\:bg-gray-600:hover {
+  background-color: #4b5563;
+}
+
+/* Input styling */
+.admin-container input[type="text"],
+.admin-container input[type="email"],
+.admin-container input[type="password"],
+.admin-container input[type="number"],
+.admin-container input[type="url"],
+.admin-container textarea,
+.admin-container select {
+  background-color: #374151;
+  color: white;
+  border-color: #4b5563;
+}
+
+.admin-container input::placeholder,
+.admin-container textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Focus states */
+.admin-container input:focus,
+.admin-container textarea:focus,
+.admin-container select:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+/* Checkbox and radio styling */
+.admin-container input[type="checkbox"],
+.admin-container input[type="radio"] {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #f59e0b;
+}
+
+/* Link colors */
+.admin-container a {
+  color: #93c5fd;
+}
+
+.admin-container a:hover {
+  color: #bfdbfe;
+}
+
+/* Status badges */
+.admin-container .bg-green-900 {
+  background-color: #14532d;
+}
+
+.admin-container .text-green-200 {
+  color: #86efac;
+}
+
+.admin-container .bg-red-900 {
+  background-color: #7f1d1d;
+}
+
+.admin-container .text-red-200 {
+  color: #fecaca;
+}
+
+/* Hover effects */
+.admin-container button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.admin-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tables */
+.admin-container table {
+  color: #d1d5db;
+}
+
+.admin-container th {
+  background-color: #111827;
+  color: #d1d5db;
+  border-color: #374151;
+}
+
+.admin-container td {
+  border-color: #374151;
+}
+
+.admin-container tr:hover {
+  background-color: #374151;
+}
+
+/* Utility classes for admin */
+.admin-text-white {
+  color: white;
+}
+
+.admin-bg-dark {
+  background-color: #0f172a;
+}
+
+.admin-bg-darker {
+  background-color: #111827;
+}
+
+.admin-bg-card {
+  background-color: #1f2937;
+}
+
+.admin-text-muted {
+  color: #9ca3af;
+}
+
+.admin-text-light {
+  color: #d1d5db;
+}
+
+.admin-border-dark {
+  border-color: #374151;
+}

@@ -12,6 +12,7 @@ import {
   LogOut,
   ChefHat,
 } from "lucide-react";
+import "./admin-styles.css";
 
 export default function AdminLayout({
   children,
@@ -171,7 +172,7 @@ export default function AdminLayout({
 
       {/* Main Content */}
       <div style={{ flex: 1, overflowY: "auto" }}>
-        <div style={{ backgroundColor: "#0f172a", color: "white", padding: "32px", minHeight: "100vh" }}>
+        <div className="admin-container" style={{ backgroundColor: "#0f172a", color: "white", padding: "32px", minHeight: "100vh" }}>
           {children}
         </div>
       </div>
