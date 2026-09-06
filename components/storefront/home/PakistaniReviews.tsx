@@ -90,14 +90,14 @@ export default function PakistaniReviews() {
             <button
               aria-label="Previous review"
               onClick={goToPrevious}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:border-primary active:scale-90 active:bg-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-primary transition hover:border-primary active:scale-90 active:bg-primary active:text-white"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               aria-label="Next review"
               onClick={goToNext}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground transition hover:border-primary active:scale-90 active:bg-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-primary transition hover:border-primary active:scale-90 active:bg-primary active:text-white"
             >
               <ChevronRight size={18} />
             </button>
@@ -105,8 +105,8 @@ export default function PakistaniReviews() {
         </div>
 
         <div className="flex items-center">
-          <div ref={cardRef} className="w-full rounded-2xl bg-gray-100 p-6 shadow-sm">
-            <Quote size={24} className="text-primary-soft" />
+          <div ref={cardRef} className="w-full rounded-2xl bg-gray-50 p-6 shadow-sm">
+            <Quote size={24} className="text-primary" />
             <p className="mt-4 text-lg leading-relaxed text-foreground">
               {review.quote}
             </p>

@@ -9,7 +9,7 @@ export default async function ReadyToOrder() {
 
   return (
     <RevealOnScroll as="section" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-tint px-8 py-8 sm:flex-row">
+      <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-primary/5 px-8 py-8 sm:flex-row">
         <div className="flex items-center gap-4">
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
             <MessageCircle size={22} />

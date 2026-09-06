@@ -57,6 +57,7 @@ export default async function AboutPage() {
           body="Daughter's Delight started as home-cooked meals made for family, and grew into a kitchen that now cooks for the neighbourhood too. Every order is still made the same way, from scratch, with care."
           imageAlt="The Daughter's Delight kitchen"
           imageSrc="/about.png"
+          reverse={false}
         />
         <SplitSection
           eyebrow="Our Mission"

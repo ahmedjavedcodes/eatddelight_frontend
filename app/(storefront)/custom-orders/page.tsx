@@ -41,7 +41,7 @@ export default async function CustomOrdersPage() {
         </p>
       </div>
 
-      <div className="mt-12 rounded-2xl bg-tint p-8">
+      <div className="mt-12 rounded-2xl bg-primary/5 p-8">
         <h2 className="text-center font-heading text-lg font-extrabold uppercase text-primary">
           Pick Your Own Plan
         </h2>
@@ -60,7 +60,7 @@ export default async function CustomOrdersPage() {
               {i < STEPS.length - 1 && (
                 <ArrowRight
                   size={18}
-                  className="mt-1.5 hidden shrink-0 text-primary/50 sm:block"
+                  className="mt-1.5 hidden shrink-0 text-primary sm:block"
                 />
               )}
             </div>
