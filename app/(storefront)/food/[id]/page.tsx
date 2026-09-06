@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import FoodDetail from "@/components/storefront/FoodDetail";
 import OrderNotes from "@/components/storefront/OrderNotes";
-import MoreMenuItems from "@/components/storefront/MoreMenuItems";
+import FoodMoreMenuItems from "@/components/storefront/FoodMoreMenuItems";
 import { ApiError } from "@/lib/api/client";
 import { getFood, getFoods } from "@/lib/api/menu";
 import { buildFoodProductSchema, buildMetadata } from "@/lib/seo";
@@ -76,7 +76,7 @@ export default async function FoodPage({ params }: FoodPageParams) {
         <OrderNotes />
       </div>
 
-      <MoreMenuItems foods={relatedFoods} />
+      <FoodMoreMenuItems foods={relatedFoods} />
     </>
   );
 }

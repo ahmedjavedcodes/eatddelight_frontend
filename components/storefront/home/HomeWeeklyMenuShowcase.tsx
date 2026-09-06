@@ -4,7 +4,7 @@ import RevealOnScroll from "@/components/RevealOnScroll";
 import { getWeeklyMenu } from "@/lib/api/menu";
 import { todayDayOfWeek, weekdayLabel } from "@/lib/format";
 
-export default async function WeeklyMenuShowcase() {
+export default async function HomeWeeklyMenuShowcase() {
   const weeklyMenu = await getWeeklyMenu().catch(() => []);
   const today = todayDayOfWeek();
 

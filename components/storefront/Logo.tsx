@@ -19,7 +19,7 @@ export default function Logo({
         className={`${imageHeight} w-auto object-contain -ml-2.5 -mr-2`}
         priority={size === "sm"}
       />
-      <span className={`font-heading ${textSize} font-medium leading-none`}>
+      <span className={`font-heading ${textSize} font-semibold leading-none`}>
         <span className={variant === "dark" ? "text-foreground" : "text-white"}>
           Daughter&rsquo;s
         </span>

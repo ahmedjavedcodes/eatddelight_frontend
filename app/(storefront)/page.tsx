@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Hero from "@/components/storefront/home/Hero";
-import MenuShowcase from "@/components/storefront/home/MenuShowcase";
-import WeeklyMenuShowcase from "@/components/storefront/home/WeeklyMenuShowcase";
-import StorySection from "@/components/storefront/home/StorySection";
-import ReadyToOrder from "@/components/storefront/home/ReadyToOrder";
+import HomeHero from "@/components/storefront/home/HomeHero";
+import HomeMenuShowcase from "@/components/storefront/home/HomeMenuShowcase";
+import HomeWeeklyMenuShowcase from "@/components/storefront/home/HomeWeeklyMenuShowcase";
+import HomeStorySection from "@/components/storefront/home/HomeStorySection";
+import HomeReadyToOrder from "@/components/storefront/home/HomeReadyToOrder";
 import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
 import { buildMetadata } from "@/lib/seo";
 
@@ -14,15 +14,15 @@ export const metadata: Metadata = buildMetadata({
   path: "/",
 });
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
-      <Hero />
-      <MenuShowcase />
+      <HomeHero />
+      <HomeMenuShowcase />
       <div className="border-t border-black/5"></div>
-      <WeeklyMenuShowcase />
-      <StorySection />
-      <ReadyToOrder />
+      <HomeWeeklyMenuShowcase />
+      <HomeStorySection />
+      <HomeReadyToOrder />
       <PakistaniReviews />
     </>
   );

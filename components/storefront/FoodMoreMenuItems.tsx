@@ -2,7 +2,7 @@ import Link from "next/link";
 import HorizontalFoodScroll from "@/components/storefront/HorizontalFoodScroll";
 import type { Food } from "@/lib/api/types";
 
-export default function MoreMenuItems({ foods }: { foods: Food[] }) {
+export default function FoodMoreMenuItems({ foods }: { foods: Food[] }) {
   if (foods.length === 0) return null;
 
   return (

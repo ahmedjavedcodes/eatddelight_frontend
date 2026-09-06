@@ -1,7 +1,7 @@
 import Image from "next/image";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-export default function SplitSection({
+export default function AboutSplitSection({
   eyebrow,
   title,
   body,

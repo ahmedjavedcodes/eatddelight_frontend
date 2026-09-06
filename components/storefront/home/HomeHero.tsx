@@ -10,7 +10,7 @@ const TRUST_BADGES = [
   { label: "Available Daily" },
 ];
 
-export default async function Hero() {
+export default async function HomeHero() {
   const settings = await getSettings().catch(() => null);
   const tagline = settings?.tagline ?? "Homemade goodness, freshly prepared with care";
   const [firstLine, ...rest] = tagline.split(", ");

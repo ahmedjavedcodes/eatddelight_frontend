@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AtSign } from "lucide-react";
-import SplitSection from "@/components/storefront/SplitSection";
+import AboutSplitSection from "@/components/storefront/AboutSplitSection";
 import PakistaniReviews from "@/components/storefront/home/PakistaniReviews";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings } from "@/lib/api/settings";
@@ -57,7 +57,7 @@ export default async function AboutPage() {
       </RevealOnScroll>
 
       <section className="mx-auto max-w-6xl divide-y divide-black/10 px-4 sm:px-6 lg:px-8">
-        <SplitSection
+        <AboutSplitSection
           eyebrow="Our Story"
           title="A home kitchen, run with love."
           body="Daughter's Delight started as home-cooked meals made for family, and grew into a kitchen that now cooks for the neighbourhood too. Every order is still made the same way, from scratch, with care."
@@ -65,7 +65,7 @@ export default async function AboutPage() {
           imageSrc="/about.png"
           reverse={false}
         />
-        <SplitSection
+        <AboutSplitSection
           eyebrow="Our Mission"
           title="Bring homemade food to more tables."
           body="We want ordering food to feel like asking a family member to cook for you: fresh, generous, and made specifically for your order, not sitting under a heat lamp."
@@ -73,7 +73,7 @@ export default async function AboutPage() {
           imageSrc="/about-2.png"
           reverse
         />
-        <SplitSection
+        <AboutSplitSection
           eyebrow="Our Vision"
           title="Homemade, made simple to order."
           body="As we grow, our promise stays the same: a rotating daily menu, a full à la carte catalog, and bespoke orders for the moments that need something special. All still cooked fresh, one order at a time."

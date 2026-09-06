@@ -28,7 +28,7 @@ const POINTS = [
   },
 ];
 
-export default function StorySection() {
+export default function HomeStorySection() {
   const [open, setOpen] = useState(-1);
 
   return (

@@ -3,7 +3,7 @@ import HomeMenuFilter from "@/components/storefront/home/HomeMenuFilter";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { getFullMenu } from "@/lib/api/menu";
 
-export default async function MenuShowcase() {
+export default async function HomeMenuShowcase() {
   const categories = await getFullMenu().catch(() => []);
   const hasFoods = categories.some((c) => c.foods.length > 0);
 

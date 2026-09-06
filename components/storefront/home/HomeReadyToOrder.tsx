@@ -3,7 +3,7 @@ import { MessageCircle, ShoppingBag } from "lucide-react";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import { getSettings, whatsappUrl } from "@/lib/api/settings";
 
-export default async function ReadyToOrder() {
+export default async function HomeReadyToOrder() {
   const settings = await getSettings().catch(() => null);
   if (!settings) return null;
 
