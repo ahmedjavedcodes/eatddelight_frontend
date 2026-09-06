@@ -11,10 +11,10 @@ export default async function BookingsBox() {
         <UtensilsCrossed size={26} />
       </span>
       <div>
-        <h2 className="font-heading text-xl font-semibold uppercase text-foreground sm:text-2xl">
+        <h2 className="font-heading text-xl font-semibold uppercase text-primary sm:text-2xl">
           For Bookings Or Order
         </h2>
-        <p className="mt-1 text-lg font-semibold text-primary">
+        <p className="mt-1 text-lg font-semibold text-foreground">
           {settings.contact_phone}
           {" // @"}
           {settings.instagram_handle.toUpperCase()}
