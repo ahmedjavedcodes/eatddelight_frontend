@@ -3,5 +3,9 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div style={{ backgroundColor: "#0f172a", color: "white", minHeight: "100vh" }}>
+      {children}
+    </div>
+  );
 }

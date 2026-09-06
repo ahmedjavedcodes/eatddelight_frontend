@@ -1,5 +1,15 @@
 /* Admin Panel Dark Theme Overrides */
 
+/* Force dark theme on admin pages */
+html {
+  background-color: #0f172a !important;
+}
+
+body {
+  background-color: #0f172a !important;
+  color: white !important;
+}
+
 /* Override global background for admin routes */
 .admin-container {
   background-color: #0f172a;

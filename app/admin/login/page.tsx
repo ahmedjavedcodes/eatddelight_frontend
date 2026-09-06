@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/auth";
 import { login } from "@/lib/api/auth";
 import { AlertCircle, ChefHat } from "lucide-react";
+import "../admin-styles.css";
 
 export default function LoginPage() {
   const router = useRouter();

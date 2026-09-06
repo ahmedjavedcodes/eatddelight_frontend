@@ -45,3 +45,16 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Admin Panel Dark Theme */
+html[data-admin="true"],
+[data-admin="true"] body {
+  background-color: #0f172a !important;
+  color: white !important;
+}
+
+/* Target admin routes by pathname - applied via layout */
+.admin-page-wrapper {
+  background-color: #0f172a !important;
+  color: white !important;
+}
