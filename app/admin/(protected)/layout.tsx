@@ -12,7 +12,7 @@ import {
   LogOut,
   ChefHat,
 } from "lucide-react";
-import "./admin-styles.css";
+import "../admin-styles.css";
 
 export default function AdminLayout({
   children,
