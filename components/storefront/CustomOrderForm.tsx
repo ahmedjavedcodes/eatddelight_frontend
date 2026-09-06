@@ -115,7 +115,7 @@ export default function CustomOrderForm({
         </div>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-12">
         <label className="text-sm font-medium text-foreground">Event Date</label>
         <input
           type="date"
