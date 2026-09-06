@@ -23,6 +23,15 @@ export default function CheckoutPage() {
   const minDate = tomorrowIso();
   const total = lines.reduce((sum, line) => sum + cartLineTotal(line), 0);
 
+  const isFormComplete = name.trim() && phone.trim() && requestedDate;
+  const getMissingFields = () => {
+    const missing = [];
+    if (!name.trim()) missing.push("name");
+    if (!phone.trim()) missing.push("phone");
+    if (!requestedDate) missing.push("date");
+    return missing;
+  };
+
   function handleOrderOnWhatsApp() {
     if (lines.length === 0) return;
     if (requestedDate && requestedDate < minDate) {
@@ -138,9 +147,22 @@ export default function CheckoutPage() {
         </Link>
       </div>
 
+      {!isFormComplete && (
+        <div className="mt-6 rounded-lg bg-yellow-50 border border-yellow-200 p-4 text-sm text-yellow-800">
+          <p className="font-medium">
+            Please fill in the following information before placing your order:
+          </p>
+          <ul className="mt-2 list-disc list-inside space-y-1">
+            {!name.trim() && <li>Your name</li>}
+            {!phone.trim() && <li>Your phone number</li>}
+            {!requestedDate && <li>Requested delivery date</li>}
+          </ul>
+        </div>
+      )}
+
       <button
         onClick={handleOrderOnWhatsApp}
-        disabled={lines.length === 0}
+        disabled={lines.length === 0 || !isFormComplete}
         className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:text-base"
       >
         <MessageCircle size={18} />
