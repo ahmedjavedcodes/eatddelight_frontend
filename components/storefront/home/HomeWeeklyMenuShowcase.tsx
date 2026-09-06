@@ -25,7 +25,7 @@ export default async function HomeWeeklyMenuShowcase() {
         </div>
         <Link
           href="/weekly-menu"
-          className="hidden text-sm font-semibold text-primary hover:underline sm:inline"
+          className="text-sm font-semibold text-primary transition hover:text-primary-dark sm:text-base"
         >
           View Weekly Menu →
         </Link>

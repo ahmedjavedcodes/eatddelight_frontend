@@ -21,7 +21,7 @@ export default async function HomeMenuShowcase() {
         </div>
         <Link
           href="/menu"
-          className="hidden text-sm font-semibold text-primary hover:underline sm:inline"
+          className="text-sm font-semibold text-primary transition hover:text-primary-dark sm:text-base"
         >
           View Full Menu →
         </Link>

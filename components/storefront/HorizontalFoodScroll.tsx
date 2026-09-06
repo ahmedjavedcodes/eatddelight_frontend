@@ -64,7 +64,7 @@ export default function HorizontalFoodScroll({ foods }: { foods: Food[] }) {
         aria-label="Scroll left"
         onClick={() => scroll("left")}
         disabled={!canScrollLeft}
-        className="absolute -left-4 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full bg-white p-2 text-primary shadow-md ring-1 ring-black/5 hover:bg-tint disabled:cursor-not-allowed disabled:text-muted sm:flex"
+        className="absolute -left-4 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full bg-white p-2 text-primary shadow-md ring-1 ring-black/5 hover:bg-tint disabled:cursor-not-allowed disabled:text-muted"
       >
         <ChevronLeft size={20} />
       </button>
@@ -72,7 +72,7 @@ export default function HorizontalFoodScroll({ foods }: { foods: Food[] }) {
         aria-label="Scroll right"
         onClick={() => scroll("right")}
         disabled={!canScrollRight}
-        className="absolute -right-4 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full bg-white p-2 text-primary shadow-md ring-1 ring-black/5 hover:bg-tint disabled:cursor-not-allowed disabled:text-muted sm:flex"
+        className="absolute -right-4 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-full bg-white p-2 text-primary shadow-md ring-1 ring-black/5 hover:bg-tint disabled:cursor-not-allowed disabled:text-muted"
       >
         <ChevronRight size={20} />
       </button>

@@ -86,7 +86,7 @@ export default function PakistaniReviews() {
             Loved by 50+ customers across Pakistan
           </p>
 
-          <div className="mt-10 flex gap-3">
+          <div className="mt-10 hidden gap-3 sm:flex">
             <button
               aria-label="Previous review"
               onClick={goToPrevious}
