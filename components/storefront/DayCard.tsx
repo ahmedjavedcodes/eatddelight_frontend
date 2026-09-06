@@ -7,6 +7,7 @@ import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
 export default function DayCard({
   day,
@@ -17,7 +18,9 @@ export default function DayCard({
   food: Food;
   highlight?: boolean;
 }) {
-  const isFavourite = useFavouritesStore((s) => s.isFavourite(food.id));
+  const hasMounted = useHasMounted();
+  const isFavouritePersisted = useFavouritesStore((s) => s.isFavourite(food.id));
+  const isFavourite = hasMounted && isFavouritePersisted;
   const toggleFavourite = useFavouritesStore((s) => s.toggle);
   const addItem = useCartStore((s) => s.addItem);
 
