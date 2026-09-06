@@ -105,7 +105,7 @@ export default function PakistaniReviews() {
         </div>
 
         <div className="flex items-center">
-          <div ref={cardRef} className="w-full rounded-2xl bg-gray-50 p-6 shadow-sm">
+          <div ref={cardRef} className="w-full rounded-2xl bg-primary/5 p-6 shadow-sm">
             <Quote size={24} className="text-primary" />
             <p className="mt-4 text-lg leading-relaxed text-foreground">
               {review.quote}

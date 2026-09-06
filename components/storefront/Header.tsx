@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -33,9 +34,14 @@ export default function Header() {
         <div className="flex items-center justify-between rounded-full bg-background px-6 py-3 shadow-lg ring-1 ring-black/5">
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-white font-bold text-sm">
-              D
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Daughter's Delight logo"
+              width={72}
+              height={36}
+              className="h-9 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}
