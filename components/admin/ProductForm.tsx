@@ -94,53 +94,53 @@ export default function ProductForm({
     }
   };
 
+  const inputClass =
+    "w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const labelClass = "mb-1.5 block text-sm font-medium text-foreground";
+
   return (
-    <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-8">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold">
+    <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="font-heading text-lg font-semibold text-foreground">
           {product ? "Edit Product" : "Create Product"}
         </h2>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-tint hover:text-foreground"
         >
-          <X className="w-5 h-5" />
+          <X size={18} />
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-6 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
-          <p className="text-red-200 text-sm">{error}</p>
+        <div className="mb-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-primary-dark" />
+          <p className="text-sm text-primary-dark">{error}</p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Product Name *
-            </label>
+            <label className={labelClass}>Product Name *</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="e.g., Chicken Biryani"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Category *
-            </label>
+            <label className={labelClass}>Category *</label>
             <select
               name="category_id"
               value={formData.category_id}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
               required
             >
               <option value="">Select a category</option>
@@ -153,9 +153,7 @@ export default function ProductForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Price (PKR) *
-            </label>
+            <label className={labelClass}>Price (PKR) *</label>
             <input
               type="number"
               name="price"
@@ -163,34 +161,30 @@ export default function ProductForm({
               onChange={handleChange}
               placeholder="e.g., 400"
               step="0.01"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Min Order Quantity
-            </label>
+            <label className={labelClass}>Min Order Quantity</label>
             <input
               type="number"
               name="min_order_quantity"
               value={formData.min_order_quantity}
               onChange={handleChange}
               min="1"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Day of Week (if special)
-            </label>
+            <label className={labelClass}>Day of Week (if special)</label>
             <select
               name="day_of_week"
               value={formData.day_of_week}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
             >
               <option value="">Not a daily special</option>
               {days.map((day) => (
@@ -202,81 +196,77 @@ export default function ProductForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Image URL
-            </label>
+            <label className={labelClass}>Image URL</label>
             <input
               type="url"
               name="image_url"
               value={formData.image_url}
               onChange={handleChange}
               placeholder="https://example.com/image.jpg"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Description
-          </label>
+          <label className={labelClass}>Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Describe the dish..."
             rows={3}
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+            className={inputClass}
           />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <label className="flex items-center gap-3 cursor-pointer">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <label className="flex cursor-pointer items-center gap-2.5 rounded-xl bg-tint/40 px-3 py-2.5">
             <input
               type="checkbox"
               name="is_available"
               checked={formData.is_available}
               onChange={handleChange}
-              className="w-5 h-5 rounded bg-gray-700 border-gray-600 text-amber-600 focus:ring-amber-500"
+              className="h-4 w-4 rounded border-black/20 text-primary focus:ring-primary/40"
             />
-            <span className="text-sm text-gray-300">Available</span>
+            <span className="text-sm text-foreground">Available</span>
           </label>
 
-          <label className="flex items-center gap-3 cursor-pointer">
+          <label className="flex cursor-pointer items-center gap-2.5 rounded-xl bg-tint/40 px-3 py-2.5">
             <input
               type="checkbox"
               name="is_single_serving"
               checked={formData.is_single_serving}
               onChange={handleChange}
-              className="w-5 h-5 rounded bg-gray-700 border-gray-600 text-amber-600 focus:ring-amber-500"
+              className="h-4 w-4 rounded border-black/20 text-primary focus:ring-primary/40"
             />
-            <span className="text-sm text-gray-300">Single Serving</span>
+            <span className="text-sm text-foreground">Single Serving</span>
           </label>
 
-          <label className="flex items-center gap-3 cursor-pointer">
+          <label className="flex cursor-pointer items-center gap-2.5 rounded-xl bg-tint/40 px-3 py-2.5">
             <input
               type="checkbox"
               name="requires_advance_order"
               checked={formData.requires_advance_order}
               onChange={handleChange}
-              className="w-5 h-5 rounded bg-gray-700 border-gray-600 text-amber-600 focus:ring-amber-500"
+              className="h-4 w-4 rounded border-black/20 text-primary focus:ring-primary/40"
             />
-            <span className="text-sm text-gray-300">Advance Order</span>
+            <span className="text-sm text-foreground">Advance Order</span>
           </label>
         </div>
 
-        <div className="flex gap-4 pt-6 border-t border-gray-700">
+        <div className="flex gap-3 border-t border-black/5 pt-5">
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 text-white font-medium py-2 rounded-lg transition-colors"
+            className="flex-1 rounded-full bg-primary py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
           >
             {loading ? "Saving..." : "Save Product"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 rounded-lg transition-colors"
+            className="flex-1 rounded-full bg-tint py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-tint/70"
           >
             Cancel
           </button>

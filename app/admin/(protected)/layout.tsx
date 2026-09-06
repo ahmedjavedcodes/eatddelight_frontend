@@ -10,8 +10,8 @@ import {
   Layers,
   Users,
   LogOut,
-  ChefHat,
 } from "lucide-react";
+import Logo from "@/components/storefront/Logo";
 import "../admin-styles.css";
 
 export default function AdminLayout({
@@ -50,132 +50,95 @@ export default function AdminLayout({
   const isActive = (href: string) => pathname === href;
 
   const navItems = [
-    {
-      href: "/admin/dashboard",
-      label: "Dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      href: "/admin/products",
-      label: "Products",
-      icon: Package,
-    },
-    {
-      href: "/admin/categories",
-      label: "Categories",
-      icon: Layers,
-    },
+    { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/admin/products", label: "Products", icon: Package },
+    { href: "/admin/categories", label: "Categories", icon: Layers },
     ...(user?.role === "owner"
-      ? [
-          {
-            href: "/admin/staff",
-            label: "Staff",
-            icon: Users,
-          },
-        ]
+      ? [{ href: "/admin/staff", label: "Staff", icon: Users }]
       : []),
   ];
 
   return (
-    <div style={{ display: "flex", height: "100vh", backgroundColor: "#111827" }}>
-      {/* Sidebar */}
-      <div
-        style={{
-          width: "256px",
-          backgroundColor: "#1f2937",
-          color: "white",
-          padding: "24px",
-          overflowY: "auto",
-          borderRight: "1px solid #374151",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px" }}>
-          <ChefHat style={{ width: "32px", height: "32px", color: "#f59e0b" }} />
-          <div>
-            <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0" }}>Admin Panel</h1>
-            <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0" }}>Daughter's Delight</p>
-          </div>
-        </div>
-
-        {/* User Info */}
-        <div style={{ backgroundColor: "#374151", borderRadius: "8px", padding: "16px", marginBottom: "32px" }}>
-          <p style={{ fontSize: "14px", fontWeight: "500", margin: "0" }}>{user?.name}</p>
-          <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0", textTransform: "capitalize" }}>
-            {user?.role}
-          </p>
-        </div>
-
-        {/* Navigation */}
-        <nav style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "32px" }}>
-          {navItems.map(({ href, label, icon: Icon }) => (
-            <Link
-              key={href}
-              href={href}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                padding: "12px 16px",
-                borderRadius: "8px",
-                transition: "all 0.2s",
-                backgroundColor: isActive(href) ? "#b45309" : "transparent",
-                color: isActive(href) ? "white" : "#d1d5db",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => {
-                if (!isActive(href)) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#374151";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive(href)) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                }
-              }}
-            >
-              <Icon style={{ width: "20px", height: "20px" }} />
-              <span>{label}</span>
+    <div className="min-h-screen bg-background">
+      <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:px-8">
+        {/* Sidebar */}
+        <aside className="hidden w-64 shrink-0 md:block">
+          <div className="sticky top-6 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5">
+            <Link href="/" className="mb-6 block">
+              <Logo size="sm" />
             </Link>
-          ))}
-        </nav>
 
-        {/* Logout Button */}
-        <button
-          onClick={handleLogout}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            padding: "12px 16px",
-            borderRadius: "8px",
-            color: "#d1d5db",
-            backgroundColor: "transparent",
-            border: "none",
-            cursor: "pointer",
-            transition: "all 0.2s",
-            fontSize: "14px",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "#7f1d1d";
-            (e.currentTarget as HTMLElement).style.color = "#fecaca";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-            (e.currentTarget as HTMLElement).style.color = "#d1d5db";
-          }}
-        >
-          <LogOut style={{ width: "20px", height: "20px" }} />
-          <span>Logout</span>
-        </button>
-      </div>
+            {/* User Info */}
+            <div className="mb-6 rounded-xl bg-tint/60 p-4">
+              <p className="truncate text-sm font-semibold text-foreground">
+                {user?.name}
+              </p>
+              <p className="text-xs font-medium capitalize text-primary">
+                {user?.role}
+              </p>
+            </div>
 
-      {/* Main Content */}
-      <div style={{ flex: 1, overflowY: "auto" }}>
-        <div className="admin-container" style={{ backgroundColor: "#0f172a", color: "white", padding: "32px", minHeight: "100vh" }}>
-          {children}
+            {/* Navigation */}
+            <nav className="space-y-1">
+              {navItems.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
+                    isActive(href)
+                      ? "bg-primary text-white"
+                      : "text-foreground/70 hover:bg-tint/60 hover:text-foreground"
+                  }`}
+                >
+                  <Icon size={18} />
+                  <span>{label}</span>
+                </Link>
+              ))}
+            </nav>
+
+            <div className="mt-6 border-t border-black/5 pt-4">
+              <button
+                onClick={handleLogout}
+                className="flex w-full items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-primary/10 hover:text-primary-dark"
+              >
+                <LogOut size={18} />
+                <span>Logout</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        {/* Mobile top bar */}
+        <div className="fixed inset-x-0 top-0 z-30 flex items-center justify-between bg-white px-4 py-3 shadow-sm ring-1 ring-black/5 md:hidden">
+          <Logo size="sm" />
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 rounded-full bg-tint/60 px-3 py-1.5 text-xs font-semibold text-primary-dark"
+          >
+            <LogOut size={14} />
+            Logout
+          </button>
         </div>
+
+        {/* Main Content */}
+        <main className="min-w-0 flex-1 pt-16 md:pt-0">{children}</main>
       </div>
+
+      {/* Mobile bottom nav */}
+      <nav className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-around border-t border-black/5 bg-white py-2 shadow-[0_-2px_8px_rgba(0,0,0,0.04)] md:hidden">
+        {navItems.map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`flex flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[11px] font-medium ${
+              isActive(href) ? "text-primary" : "text-muted"
+            }`}
+          >
+            <Icon size={20} />
+            {label}
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

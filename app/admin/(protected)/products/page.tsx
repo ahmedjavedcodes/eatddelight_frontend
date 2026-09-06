@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/store/auth";
 import { getFoods, getCategories, deleteFood } from "@/lib/api/admin";
 import { Food, Category } from "@/lib/api/types";
-import { Plus, Edit2, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertCircle } from "lucide-react";
+import PageHeading from "@/components/storefront/PageHeading";
+import { formatPrice } from "@/lib/format";
 import ProductForm from "@/components/admin/ProductForm";
 
 export default function ProductsPage() {
@@ -55,9 +57,7 @@ export default function ProductsPage() {
       await deleteFood(token, id);
       setProducts(products.filter((p) => p.id !== id));
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to delete product",
-      );
+      setError(err instanceof Error ? err.message : "Failed to delete product");
     } finally {
       setDeleting(null);
     }
@@ -66,35 +66,23 @@ export default function ProductsPage() {
   const handleProductSaved = () => {
     setShowForm(false);
     setEditingProduct(null);
-    // Refetch products
     if (token) {
       getFoods(token)
         .then(setProducts)
-        .catch((err) =>
-          setError(err instanceof Error ? err.message : "Failed to refresh"),
-        );
+        .catch((err) => setError(err instanceof Error ? err.message : "Failed to refresh"));
     }
   };
 
-  const getCategoryName = (categoryId: number) => {
-    return categories.find((c) => c.id === categoryId)?.name || "Unknown";
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400">Loading products...</div>
-      </div>
-    );
-  }
+  const getCategoryName = (categoryId: number) =>
+    categories.find((c) => c.id === categoryId)?.name || "Uncategorized";
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Products</h1>
-          <p className="text-gray-400">
-            {products.length} product{products.length !== 1 ? "s" : ""} in store
+          <PageHeading eyebrow="Admin" title="Products" />
+          <p className="mt-2 text-sm text-muted">
+            {loading ? "Loading…" : `${products.length} product${products.length !== 1 ? "s" : ""} on the menu`}
           </p>
         </div>
         <button
@@ -102,21 +90,21 @@ export default function ProductsPage() {
             setEditingProduct(null);
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-colors"
+          className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
         >
-          <Plus className="w-5 h-5" />
+          <Plus size={16} />
           Add Product
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-8 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-primary-dark" />
           <div>
-            <p className="text-red-200">{error}</p>
+            <p className="text-sm text-primary-dark">{error}</p>
             <button
               onClick={() => setError(null)}
-              className="text-red-300 text-sm mt-2 hover:text-red-200"
+              className="mt-1 text-xs font-medium text-primary-dark underline"
             >
               Dismiss
             </button>
@@ -125,7 +113,7 @@ export default function ProductsPage() {
       )}
 
       {showForm && (
-        <div className="mb-8">
+        <div className="mt-6">
           <ProductForm
             categories={categories}
             product={editingProduct || undefined}
@@ -138,98 +126,83 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Products Table */}
-      <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
-        {products.length === 0 ? (
-          <div className="p-8 text-center text-gray-400">
-            <p className="mb-4">No products yet</p>
+      <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
+        {loading ? (
+          <div className="p-10 text-center text-sm text-muted">Loading products…</div>
+        ) : products.length === 0 ? (
+          <div className="p-10 text-center">
+            <p className="text-sm text-muted">No products yet</p>
             <button
               onClick={() => setShowForm(true)}
-              className="text-amber-400 hover:text-amber-300"
+              className="mt-2 text-sm font-semibold text-primary hover:text-primary-dark"
             >
               Create your first product
             </button>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-gray-700 bg-gray-900">
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Name
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Category
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Price
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Min Order
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Status
-                  </th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold">
-                    Actions
-                  </th>
+                <tr className="border-b border-black/5 bg-tint/40">
+                  <th className="px-6 py-3 font-semibold text-foreground">Name</th>
+                  <th className="px-6 py-3 font-semibold text-foreground">Category</th>
+                  <th className="px-6 py-3 font-semibold text-foreground">Price</th>
+                  <th className="px-6 py-3 font-semibold text-foreground">Min Order</th>
+                  <th className="px-6 py-3 font-semibold text-foreground">Status</th>
+                  <th className="px-6 py-3 text-right font-semibold text-foreground">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
                   <tr
                     key={product.id}
-                    className="border-b border-gray-700 hover:bg-gray-700 transition-colors"
+                    className="border-b border-black/5 last:border-0 hover:bg-tint/20"
                   >
                     <td className="px-6 py-4">
-                      <div>
-                        <p className="font-medium">{product.name}</p>
-                        {product.description && (
-                          <p className="text-sm text-gray-400">
-                            {product.description.substring(0, 50)}...
-                          </p>
-                        )}
-                      </div>
+                      <p className="font-medium text-foreground">{product.name}</p>
+                      {product.description && (
+                        <p className="mt-0.5 line-clamp-1 text-xs text-muted">
+                          {product.description}
+                        </p>
+                      )}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
+                    <td className="px-6 py-4 text-muted">
                       {getCategoryName(product.category_id)}
                     </td>
-                    <td className="px-6 py-4 font-medium">
-                      Rs. {parseFloat(product.price).toFixed(0)}
+                    <td className="px-6 py-4 font-semibold text-foreground">
+                      {formatPrice(product.price)}
                     </td>
-                    <td className="px-6 py-4 text-gray-300">
-                      {product.min_order_quantity}
-                    </td>
+                    <td className="px-6 py-4 text-muted">{product.min_order_quantity}</td>
                     <td className="px-6 py-4">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
                           product.is_available
-                            ? "bg-green-900 text-green-200"
-                            : "bg-red-900 text-red-200"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-black/5 text-muted"
                         }`}
                       >
                         {product.is_available ? "Available" : "Unavailable"}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => {
                             setEditingProduct(product);
                             setShowForm(true);
                           }}
-                          className="p-2 hover:bg-gray-600 rounded-lg transition-colors text-blue-400 hover:text-blue-300"
+                          className="flex h-8 w-8 items-center justify-center rounded-full text-foreground/60 transition hover:bg-tint hover:text-primary"
                           title="Edit product"
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <Pencil size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(product.id)}
                           disabled={deleting === product.id || !isOwner()}
-                          className="p-2 hover:bg-red-900 rounded-lg transition-colors text-red-400 hover:text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="flex h-8 w-8 items-center justify-center rounded-full text-foreground/60 transition hover:bg-primary/10 hover:text-primary-dark disabled:cursor-not-allowed disabled:opacity-40"
                           title={isOwner() ? "Delete product" : "Only owners can delete"}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 size={15} />
                         </button>
                       </div>
                     </td>

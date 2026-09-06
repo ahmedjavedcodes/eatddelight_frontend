@@ -75,116 +75,110 @@ export default function CategoryForm({
     }
   };
 
+  const inputClass =
+    "w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const labelClass = "mb-1.5 block text-sm font-medium text-foreground";
+
   return (
-    <div className="bg-gray-800 rounded-lg border border-gray-700 p-6 mb-8">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold">
+    <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="font-heading text-lg font-semibold text-foreground">
           {category ? "Edit Category" : "Create Category"}
         </h2>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-tint hover:text-foreground"
         >
-          <X className="w-5 h-5" />
+          <X size={18} />
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-6 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
-          <p className="text-red-200 text-sm">{error}</p>
+        <div className="mb-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-primary-dark" />
+          <p className="text-sm text-primary-dark">{error}</p>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Category Name *
-            </label>
+            <label className={labelClass}>Category Name *</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="e.g., Rice Dishes"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Slug *
-            </label>
+            <label className={labelClass}>Slug *</label>
             <input
               type="text"
               name="slug"
               value={formData.slug}
               onChange={handleChange}
               placeholder="e.g., rice-dishes"
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
               required
             />
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="mt-1 text-xs text-muted">
               URL-friendly identifier (lowercase, hyphens only)
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
-              Display Order
-            </label>
+            <label className={labelClass}>Display Order</label>
             <input
               type="number"
               name="display_order"
               value={formData.display_order}
               onChange={handleChange}
-              className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white focus:outline-none focus:border-amber-500 transition-colors"
+              className={inputClass}
             />
-            <p className="text-xs text-gray-400 mt-1">
-              Lower numbers appear first
-            </p>
+            <p className="mt-1 text-xs text-muted">Lower numbers appear first</p>
           </div>
 
-          <label className="flex items-center gap-3 cursor-pointer pt-8">
+          <label className="flex cursor-pointer items-center gap-2.5 self-start rounded-xl bg-tint/40 px-3 py-2.5 md:mt-8">
             <input
               type="checkbox"
               name="is_active"
               checked={formData.is_active}
               onChange={handleChange}
-              className="w-5 h-5 rounded bg-gray-700 border-gray-600 text-amber-600 focus:ring-amber-500"
+              className="h-4 w-4 rounded border-black/20 text-primary focus:ring-primary/40"
             />
-            <span className="text-sm text-gray-300">Active</span>
+            <span className="text-sm text-foreground">Active</span>
           </label>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">
-            Description
-          </label>
+          <label className={labelClass}>Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Describe this category..."
             rows={3}
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+            className={inputClass}
           />
         </div>
 
-        <div className="flex gap-4 pt-6 border-t border-gray-700">
+        <div className="flex gap-3 border-t border-black/5 pt-5">
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 text-white font-medium py-2 rounded-lg transition-colors"
+            className="flex-1 rounded-full bg-primary py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
           >
             {loading ? "Saving..." : "Save Category"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 rounded-lg transition-colors"
+            className="flex-1 rounded-full bg-tint py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-tint/70"
           >
             Cancel
           </button>

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "@/lib/store/auth";
 import { getCategories, deleteCategory } from "@/lib/api/admin";
 import { Category } from "@/lib/api/types";
-import { Plus, Edit2, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertCircle } from "lucide-react";
+import PageHeading from "@/components/storefront/PageHeading";
 import CategoryForm from "@/components/admin/CategoryForm";
 
 export default function CategoriesPage() {
@@ -24,9 +25,7 @@ export default function CategoriesPage() {
         const cats = await getCategories(token);
         setCategories(cats);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch categories",
-        );
+        setError(err instanceof Error ? err.message : "Failed to fetch categories");
       } finally {
         setLoading(false);
       }
@@ -50,9 +49,7 @@ export default function CategoriesPage() {
       await deleteCategory(token, id);
       setCategories(categories.filter((c) => c.id !== id));
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to delete category",
-      );
+      setError(err instanceof Error ? err.message : "Failed to delete category");
     } finally {
       setDeleting(null);
     }
@@ -61,31 +58,20 @@ export default function CategoriesPage() {
   const handleCategorySaved = () => {
     setShowForm(false);
     setEditingCategory(null);
-    // Refetch categories
     if (token) {
       getCategories(token)
         .then(setCategories)
-        .catch((err) =>
-          setError(err instanceof Error ? err.message : "Failed to refresh"),
-        );
+        .catch((err) => setError(err instanceof Error ? err.message : "Failed to refresh"));
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400">Loading categories...</div>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Categories</h1>
-          <p className="text-gray-400">
-            {categories.length} categor{categories.length !== 1 ? "ies" : "y"}
+          <PageHeading eyebrow="Admin" title="Categories" />
+          <p className="mt-2 text-sm text-muted">
+            {loading ? "Loading…" : `${categories.length} categor${categories.length !== 1 ? "ies" : "y"}`}
           </p>
         </div>
         <button
@@ -93,21 +79,21 @@ export default function CategoriesPage() {
             setEditingCategory(null);
             setShowForm(true);
           }}
-          className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-colors"
+          className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
         >
-          <Plus className="w-5 h-5" />
+          <Plus size={16} />
           Add Category
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-8 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-primary-dark" />
           <div>
-            <p className="text-red-200">{error}</p>
+            <p className="text-sm text-primary-dark">{error}</p>
             <button
               onClick={() => setError(null)}
-              className="text-red-300 text-sm mt-2 hover:text-red-200"
+              className="mt-1 text-xs font-medium text-primary-dark underline"
             >
               Dismiss
             </button>
@@ -116,7 +102,7 @@ export default function CategoriesPage() {
       )}
 
       {showForm && (
-        <div className="mb-8">
+        <div className="mt-6">
           <CategoryForm
             category={editingCategory || undefined}
             onClose={() => {
@@ -128,72 +114,75 @@ export default function CategoriesPage() {
         </div>
       )}
 
-      {/* Categories Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.length === 0 ? (
-          <div className="col-span-full">
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 text-center text-gray-400">
-              <p className="mb-4">No categories yet</p>
-              <button
-                onClick={() => setShowForm(true)}
-                className="text-amber-400 hover:text-amber-300"
-              >
-                Create your first category
-              </button>
-            </div>
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {loading ? (
+          <div className="col-span-full rounded-2xl bg-white p-10 text-center text-sm text-muted shadow-sm ring-1 ring-black/5">
+            Loading categories…
+          </div>
+        ) : categories.length === 0 ? (
+          <div className="col-span-full rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-black/5">
+            <p className="text-sm text-muted">No categories yet</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-2 text-sm font-semibold text-primary hover:text-primary-dark"
+            >
+              Create your first category
+            </button>
           </div>
         ) : (
           categories.map((category) => (
             <div
               key={category.id}
-              className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-gray-600 transition-colors"
+              className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:shadow-md"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="font-semibold text-lg mb-1">{category.name}</h3>
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <h3 className="truncate font-heading font-semibold text-foreground">
+                    {category.name}
+                  </h3>
                   {category.description && (
-                    <p className="text-sm text-gray-400">
+                    <p className="mt-1 line-clamp-2 text-sm text-muted">
                       {category.description}
                     </p>
                   )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex shrink-0 gap-1">
                   <button
                     onClick={() => {
                       setEditingCategory(category);
                       setShowForm(true);
                     }}
-                    className="p-2 hover:bg-gray-700 rounded-lg transition-colors text-blue-400 hover:text-blue-300"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-foreground/60 transition hover:bg-tint hover:text-primary"
                     title="Edit category"
                   >
-                    <Edit2 className="w-4 h-4" />
+                    <Pencil size={15} />
                   </button>
                   <button
                     onClick={() => handleDelete(category.id)}
                     disabled={deleting === category.id || !isOwner()}
-                    className="p-2 hover:bg-red-900 rounded-lg transition-colors text-red-400 hover:text-red-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex h-8 w-8 items-center justify-center rounded-full text-foreground/60 transition hover:bg-primary/10 hover:text-primary-dark disabled:cursor-not-allowed disabled:opacity-40"
                     title={isOwner() ? "Delete category" : "Only owners can delete"}
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 size={15} />
                   </button>
                 </div>
               </div>
 
-              <div className="space-y-2 pt-4 border-t border-gray-700">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Slug:</span>
-                  <code className="text-amber-400 font-mono">
+              <div className="mt-4 space-y-1.5 border-t border-black/5 pt-4 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted">Slug</span>
+                  <code className="rounded bg-tint/60 px-1.5 py-0.5 text-xs text-primary-dark">
                     {category.slug}
                   </code>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Order:</span>
-                  <span>{category.display_order}</span>
+                <div className="flex justify-between">
+                  <span className="text-muted">Order</span>
+                  <span className="text-foreground">{category.display_order}</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Status:</span>
+                <div className="flex justify-between">
+                  <span className="text-muted">Status</span>
                   <span
-                    className={category.is_active ? "text-green-400" : "text-red-400"}
+                    className={`font-medium ${category.is_active ? "text-green-700" : "text-muted"}`}
                   >
                     {category.is_active ? "Active" : "Inactive"}
                   </span>

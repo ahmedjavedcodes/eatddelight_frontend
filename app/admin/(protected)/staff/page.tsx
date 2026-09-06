@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/store/auth";
 import { getStaff, updateStaff } from "@/lib/api/admin";
 import { AdminUser } from "@/lib/api/admin";
 import { Plus, AlertCircle, Shield, User } from "lucide-react";
+import PageHeading from "@/components/storefront/PageHeading";
 import StaffForm from "@/components/admin/StaffForm";
 
 export default function StaffPage() {
@@ -29,26 +30,22 @@ export default function StaffPage() {
         const staffMembers = await getStaff(token);
         setStaff(staffMembers);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to fetch staff",
-        );
+        setError(err instanceof Error ? err.message : "Failed to fetch staff");
       } finally {
         setLoading(false);
       }
     };
 
     fetchStaff();
-  }, [token, isOwner, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
 
   const handleStaffSaved = () => {
     setShowForm(false);
-    // Refetch staff
     if (token) {
       getStaff(token)
         .then(setStaff)
-        .catch((err) =>
-          setError(err instanceof Error ? err.message : "Failed to refresh"),
-        );
+        .catch((err) => setError(err instanceof Error ? err.message : "Failed to refresh"));
     }
   };
 
@@ -56,24 +53,12 @@ export default function StaffPage() {
     if (!token) return;
 
     try {
-      const updatedStaff = await updateStaff(token, id, {
-        is_active: !isActive,
-      });
+      const updatedStaff = await updateStaff(token, id, { is_active: !isActive });
       setStaff(staff.map((s) => (s.id === id ? updatedStaff : s)));
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to update staff",
-      );
+      setError(err instanceof Error ? err.message : "Failed to update staff");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400">Loading staff...</div>
-      </div>
-    );
-  }
 
   if (!isOwner()) {
     return null;
@@ -81,30 +66,30 @@ export default function StaffPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Staff Management</h1>
-          <p className="text-gray-400">
-            {staff.length} staff member{staff.length !== 1 ? "s" : ""}
+          <PageHeading eyebrow="Admin" title="Staff" />
+          <p className="mt-2 text-sm text-muted">
+            {loading ? "Loading…" : `${staff.length} staff member${staff.length !== 1 ? "s" : ""}`}
           </p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg transition-colors"
+          className="flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
         >
-          <Plus className="w-5 h-5" />
+          <Plus size={16} />
           Add Staff
         </button>
       </div>
 
       {error && (
-        <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-8 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
+        <div className="mt-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-primary-dark" />
           <div>
-            <p className="text-red-200">{error}</p>
+            <p className="text-sm text-primary-dark">{error}</p>
             <button
               onClick={() => setError(null)}
-              className="text-red-300 text-sm mt-2 hover:text-red-200"
+              className="mt-1 text-xs font-medium text-primary-dark underline"
             >
               Dismiss
             </button>
@@ -113,98 +98,84 @@ export default function StaffPage() {
       )}
 
       {showForm && (
-        <div className="mb-8">
-          <StaffForm
-            onClose={() => setShowForm(false)}
-            onSaved={handleStaffSaved}
-          />
+        <div className="mt-6">
+          <StaffForm onClose={() => setShowForm(false)} onSaved={handleStaffSaved} />
         </div>
       )}
 
-      {/* Staff List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {staff.length === 0 ? (
-          <div className="col-span-full">
-            <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 text-center text-gray-400">
-              <p className="mb-4">No staff members yet</p>
-              <button
-                onClick={() => setShowForm(true)}
-                className="text-amber-400 hover:text-amber-300"
-              >
-                Add your first staff member
-              </button>
-            </div>
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {loading ? (
+          <div className="col-span-full rounded-2xl bg-white p-10 text-center text-sm text-muted shadow-sm ring-1 ring-black/5">
+            Loading staff…
+          </div>
+        ) : staff.length === 0 ? (
+          <div className="col-span-full rounded-2xl bg-white p-10 text-center shadow-sm ring-1 ring-black/5">
+            <p className="text-sm text-muted">No staff members yet</p>
+            <button
+              onClick={() => setShowForm(true)}
+              className="mt-2 text-sm font-semibold text-primary hover:text-primary-dark"
+            >
+              Add your first staff member
+            </button>
           </div>
         ) : (
           staff.map((member) => (
             <div
               key={member.id}
-              className="bg-gray-800 rounded-lg border border-gray-700 p-6 hover:border-gray-600 transition-colors"
+              className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 transition hover:shadow-md"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-start gap-4">
-                  <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-lg p-3">
-                    {member.role === "owner" ? (
-                      <Shield className="w-6 h-6 text-white" />
-                    ) : (
-                      <User className="w-6 h-6 text-white" />
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg mb-1">{member.name}</h3>
-                    <p className="text-sm text-gray-400 mb-2">{member.email}</p>
-                    <div className="flex items-center gap-2">
-                      <span
-                        className={`px-2 py-1 rounded text-xs font-medium ${
-                          member.role === "owner"
-                            ? "bg-purple-900 text-purple-200"
-                            : "bg-blue-900 text-blue-200"
-                        }`}
-                      >
-                        {member.role === "owner" ? "Owner" : "Staff"}
-                      </span>
-                      <span
-                        className={`px-2 py-1 rounded text-xs font-medium ${
-                          member.is_active
-                            ? "bg-green-900 text-green-200"
-                            : "bg-red-900 text-red-200"
-                        }`}
-                      >
-                        {member.is_active ? "Active" : "Inactive"}
-                      </span>
-                    </div>
+              <div className="flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-tint text-primary">
+                  {member.role === "owner" ? <Shield size={18} /> : <User size={18} />}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="truncate font-heading font-semibold text-foreground">
+                    {member.name}
+                  </h3>
+                  <p className="truncate text-sm text-muted">{member.email}</p>
+                  <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                    <span
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                        member.role === "owner"
+                          ? "bg-gold/15 text-gold"
+                          : "bg-tint text-primary-dark"
+                      }`}
+                    >
+                      {member.role === "owner" ? "Owner" : "Staff"}
+                    </span>
+                    <span
+                      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                        member.is_active
+                          ? "bg-green-100 text-green-700"
+                          : "bg-black/5 text-muted"
+                      }`}
+                    >
+                      {member.is_active ? "Active" : "Inactive"}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-gray-700">
-                {member.id !== currentUser?.id && (
+              <div className="mt-4 border-t border-black/5 pt-4">
+                {member.id !== currentUser?.id ? (
                   <button
-                    onClick={() =>
-                      handleToggleActive(member.id, member.is_active)
-                    }
-                    className={`w-full px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+                    onClick={() => handleToggleActive(member.id, member.is_active)}
+                    className={`w-full rounded-full py-2 text-sm font-semibold transition-colors ${
                       member.is_active
-                        ? "bg-red-900 hover:bg-red-800 text-red-200"
-                        : "bg-green-900 hover:bg-green-800 text-green-200"
+                        ? "bg-primary/10 text-primary-dark hover:bg-primary/20"
+                        : "bg-green-100 text-green-700 hover:bg-green-200"
                     }`}
                   >
                     {member.is_active ? "Deactivate" : "Activate"}
                   </button>
-                )}
-                {member.id === currentUser?.id && (
-                  <p className="text-sm text-gray-400 text-center">
-                    This is your account
-                  </p>
+                ) : (
+                  <p className="text-center text-sm text-muted">This is your account</p>
                 )}
               </div>
 
-              <div className="mt-4 pt-4 border-t border-gray-700">
-                <p className="text-xs text-gray-500">
-                  Joined{" "}
-                  {new Date(member.created_at).toLocaleDateString()}
-                </p>
-              </div>
+              <p className="mt-3 text-xs text-muted">
+                Joined {new Date(member.created_at).toLocaleDateString()}
+              </p>
             </div>
           ))
         )}

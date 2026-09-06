@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/auth";
 import { login } from "@/lib/api/auth";
-import { AlertCircle, ChefHat } from "lucide-react";
-import "../admin-styles.css";
+import { AlertCircle } from "lucide-react";
+import Logo from "@/components/storefront/Logo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -32,7 +32,9 @@ export default function LoginPage() {
       router.push("/admin/dashboard");
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Failed to login. Please try again.",
+        err instanceof Error
+          ? err.message
+          : "Failed to login. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -40,115 +42,66 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(to bottom right, #111827, #0f172a)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "16px",
-      }}
-    >
-      <div style={{ width: "100%", maxWidth: "448px" }}>
-        {/* Logo */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "32px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "12px",
-              backgroundColor: "#1f2937",
-              borderRadius: "8px",
-              padding: "16px",
-              border: "1px solid #374151",
-            }}
-          >
-            <ChefHat style={{ width: "32px", height: "32px", color: "#f59e0b" }} />
-            <div>
-              <h1 style={{ fontSize: "20px", fontWeight: "bold", color: "white", margin: "0" }}>
-                Admin Panel
-              </h1>
-              <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0" }}>Daughter's Delight</p>
-            </div>
-          </div>
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
+      <div className="w-full max-w-sm">
+        <div className="mb-8 flex justify-center">
+          <Logo />
         </div>
 
-        {/* Login Form */}
-        <div
-          style={{
-            backgroundColor: "#1f2937",
-            borderRadius: "8px",
-            border: "1px solid #374151",
-            padding: "32px",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-          }}
-        >
-          <h2 style={{ fontSize: "24px", fontWeight: "bold", color: "white", marginBottom: "8px", marginTop: "0" }}>
-            Welcome Back
-          </h2>
-          <p style={{ color: "#9ca3af", marginBottom: "32px", marginTop: "0" }}>Sign in to manage your menu</p>
+        <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-black/5">
+          <span className="text-sm font-bold uppercase tracking-wide text-primary">
+            Admin
+          </span>
+          <h1 className="mt-1 font-heading text-2xl font-semibold text-foreground">
+            Welcome back
+          </h1>
+          <p className="mt-1 text-sm text-muted">
+            Sign in to manage your menu
+          </p>
 
           {error && (
-            <div
-              style={{
-                backgroundColor: "#7f1d1d",
-                border: "1px solid #991b1b",
-                borderRadius: "8px",
-                padding: "16px",
-                marginBottom: "24px",
-                display: "flex",
-                gap: "12px",
-              }}
-            >
-              <AlertCircle style={{ width: "20px", height: "20px", color: "#fecaca", flexShrink: 0, marginTop: "2px" }} />
-              <p style={{ color: "#fecaca", fontSize: "14px", margin: "0" }}>{error}</p>
+            <div className="mt-6 flex items-start gap-3 rounded-xl bg-primary/10 p-4">
+              <AlertCircle
+                size={18}
+                className="mt-0.5 shrink-0 text-primary-dark"
+              />
+              <p className="text-sm text-primary-dark">{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <label style={{ display: "block", fontSize: "14px", fontWeight: "500", color: "#d1d5db", marginBottom: "8px" }}>
+              <label
+                htmlFor="email"
+                className="mb-1.5 block text-sm font-medium text-foreground"
+              >
                 Email
               </label>
               <input
+                id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="owner@eatddelight.com"
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "8px",
-                  backgroundColor: "#374151",
-                  border: "1px solid #4b5563",
-                  color: "white",
-                  fontSize: "14px",
-                  boxSizing: "border-box",
-                }}
+                className="w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
 
             <div>
-              <label style={{ display: "block", fontSize: "14px", fontWeight: "500", color: "#d1d5db", marginBottom: "8px" }}>
+              <label
+                htmlFor="password"
+                className="mb-1.5 block text-sm font-medium text-foreground"
+              >
                 Password
               </label>
               <input
+                id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: "8px",
-                  backgroundColor: "#374151",
-                  border: "1px solid #4b5563",
-                  color: "white",
-                  fontSize: "14px",
-                  boxSizing: "border-box",
-                }}
+                className="w-full rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 required
               />
             </div>
@@ -156,34 +109,13 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              style={{
-                width: "100%",
-                backgroundColor: loading ? "#4b5563" : "#b45309",
-                color: "white",
-                fontWeight: "500",
-                padding: "12px 16px",
-                borderRadius: "8px",
-                border: "none",
-                cursor: loading ? "not-allowed" : "pointer",
-                transition: "all 0.2s",
-                fontSize: "14px",
-              }}
-              onMouseEnter={(e) => {
-                if (!loading) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#92400e";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!loading) {
-                  (e.currentTarget as HTMLElement).style.backgroundColor = "#b45309";
-                }
-              }}
+              className="w-full rounded-full bg-primary py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
 
-          <p style={{ textAlign: "center", color: "#9ca3af", fontSize: "14px", marginTop: "24px", marginBottom: "0" }}>
+          <p className="mt-6 text-center text-xs text-muted">
             Authorized personnel only
           </p>
         </div>
