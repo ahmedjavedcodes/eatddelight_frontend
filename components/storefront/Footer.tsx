@@ -101,6 +101,10 @@ export default async function Footer() {
       <div className="border-t border-black/5 py-5 text-center text-xs text-muted">
         © {new Date().getFullYear()}{" "}
         {settings?.business_name ?? "Daughter's Delight"}. All rights reserved.
+        <span className="mx-2">•</span>
+        <Link href="/admin/login" className="hover:text-foreground">
+          Admin
+        </Link>
       </div>
     </footer>
   );
