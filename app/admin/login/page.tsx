@@ -39,34 +39,75 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom right, #111827, #0f172a)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: "448px" }}>
         {/* Logo */}
-        <div className="flex justify-center mb-8">
-          <div className="flex items-center gap-3 bg-gray-800 rounded-lg p-4 border border-gray-700">
-            <ChefHat className="w-8 h-8 text-amber-500" />
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "32px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              backgroundColor: "#1f2937",
+              borderRadius: "8px",
+              padding: "16px",
+              border: "1px solid #374151",
+            }}
+          >
+            <ChefHat style={{ width: "32px", height: "32px", color: "#f59e0b" }} />
             <div>
-              <h1 className="text-xl font-bold text-white">Admin Panel</h1>
-              <p className="text-xs text-gray-400">Daughter's Delight</p>
+              <h1 style={{ fontSize: "20px", fontWeight: "bold", color: "white", margin: "0" }}>
+                Admin Panel
+              </h1>
+              <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0" }}>Daughter's Delight</p>
             </div>
           </div>
         </div>
 
         {/* Login Form */}
-        <div className="bg-gray-800 rounded-lg border border-gray-700 p-8 shadow-2xl">
-          <h2 className="text-2xl font-bold text-white mb-2">Welcome Back</h2>
-          <p className="text-gray-400 mb-8">Sign in to manage your menu</p>
+        <div
+          style={{
+            backgroundColor: "#1f2937",
+            borderRadius: "8px",
+            border: "1px solid #374151",
+            padding: "32px",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", color: "white", marginBottom: "8px", marginTop: "0" }}>
+            Welcome Back
+          </h2>
+          <p style={{ color: "#9ca3af", marginBottom: "32px", marginTop: "0" }}>Sign in to manage your menu</p>
 
           {error && (
-            <div className="bg-red-900 border border-red-700 rounded-lg p-4 mb-6 flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-red-200 flex-shrink-0 mt-0.5" />
-              <p className="text-red-200 text-sm">{error}</p>
+            <div
+              style={{
+                backgroundColor: "#7f1d1d",
+                border: "1px solid #991b1b",
+                borderRadius: "8px",
+                padding: "16px",
+                marginBottom: "24px",
+                display: "flex",
+                gap: "12px",
+              }}
+            >
+              <AlertCircle style={{ width: "20px", height: "20px", color: "#fecaca", flexShrink: 0, marginTop: "2px" }} />
+              <p style={{ color: "#fecaca", fontSize: "14px", margin: "0" }}>{error}</p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label style={{ display: "block", fontSize: "14px", fontWeight: "500", color: "#d1d5db", marginBottom: "8px" }}>
                 Email
               </label>
               <input
@@ -74,13 +115,22 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="owner@eatddelight.com"
-                className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  borderRadius: "8px",
+                  backgroundColor: "#374151",
+                  border: "1px solid #4b5563",
+                  color: "white",
+                  fontSize: "14px",
+                  boxSizing: "border-box",
+                }}
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label style={{ display: "block", fontSize: "14px", fontWeight: "500", color: "#d1d5db", marginBottom: "8px" }}>
                 Password
               </label>
               <input
@@ -88,7 +138,16 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500 transition-colors"
+                style={{
+                  width: "100%",
+                  padding: "12px 16px",
+                  borderRadius: "8px",
+                  backgroundColor: "#374151",
+                  border: "1px solid #4b5563",
+                  color: "white",
+                  fontSize: "14px",
+                  boxSizing: "border-box",
+                }}
                 required
               />
             </div>
@@ -96,13 +155,34 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 text-white font-medium py-3 rounded-lg transition-colors"
+              style={{
+                width: "100%",
+                backgroundColor: loading ? "#4b5563" : "#b45309",
+                color: "white",
+                fontWeight: "500",
+                padding: "12px 16px",
+                borderRadius: "8px",
+                border: "none",
+                cursor: loading ? "not-allowed" : "pointer",
+                transition: "all 0.2s",
+                fontSize: "14px",
+              }}
+              onMouseEnter={(e) => {
+                if (!loading) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#92400e";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#b45309";
+                }
+              }}
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
           </form>
 
-          <p className="text-center text-gray-400 text-sm mt-6">
+          <p style={{ textAlign: "center", color: "#9ca3af", fontSize: "14px", marginTop: "24px", marginBottom: "0" }}>
             Authorized personnel only
           </p>
         </div>

@@ -76,36 +76,63 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div style={{ display: "flex", height: "100vh", backgroundColor: "#111827" }}>
       {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white p-6 overflow-y-auto border-r border-gray-700">
-        <div className="flex items-center gap-3 mb-8">
-          <ChefHat className="w-8 h-8 text-amber-500" />
+      <div
+        style={{
+          width: "256px",
+          backgroundColor: "#1f2937",
+          color: "white",
+          padding: "24px",
+          overflowY: "auto",
+          borderRight: "1px solid #374151",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "32px" }}>
+          <ChefHat style={{ width: "32px", height: "32px", color: "#f59e0b" }} />
           <div>
-            <h1 className="text-xl font-bold">Admin Panel</h1>
-            <p className="text-xs text-gray-400">Daughter's Delight</p>
+            <h1 style={{ fontSize: "20px", fontWeight: "bold", margin: "0" }}>Admin Panel</h1>
+            <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0" }}>Daughter's Delight</p>
           </div>
         </div>
 
         {/* User Info */}
-        <div className="bg-gray-700 rounded-lg p-4 mb-8">
-          <p className="text-sm font-medium">{user?.name}</p>
-          <p className="text-xs text-gray-400 capitalize">{user?.role}</p>
+        <div style={{ backgroundColor: "#374151", borderRadius: "8px", padding: "16px", marginBottom: "32px" }}>
+          <p style={{ fontSize: "14px", fontWeight: "500", margin: "0" }}>{user?.name}</p>
+          <p style={{ fontSize: "12px", color: "#9ca3af", margin: "0", textTransform: "capitalize" }}>
+            {user?.role}
+          </p>
         </div>
 
         {/* Navigation */}
-        <nav className="space-y-2 mb-8">
+        <nav style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "32px" }}>
           {navItems.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                isActive(href)
-                  ? "bg-amber-600 text-white"
-                  : "text-gray-300 hover:bg-gray-700"
-              }`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                padding: "12px 16px",
+                borderRadius: "8px",
+                transition: "all 0.2s",
+                backgroundColor: isActive(href) ? "#b45309" : "transparent",
+                color: isActive(href) ? "white" : "#d1d5db",
+                textDecoration: "none",
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive(href)) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#374151";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive(href)) {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                }
+              }}
             >
-              <Icon className="w-5 h-5" />
+              <Icon style={{ width: "20px", height: "20px" }} />
               <span>{label}</span>
             </Link>
           ))}
@@ -114,16 +141,39 @@ export default function AdminLayout({
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-900 hover:text-red-100 transition-colors"
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            padding: "12px 16px",
+            borderRadius: "8px",
+            color: "#d1d5db",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            transition: "all 0.2s",
+            fontSize: "14px",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.backgroundColor = "#7f1d1d";
+            (e.currentTarget as HTMLElement).style.color = "#fecaca";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+            (e.currentTarget as HTMLElement).style.color = "#d1d5db";
+          }}
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut style={{ width: "20px", height: "20px" }} />
           <span>Logout</span>
         </button>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <div className="bg-gray-950 text-white p-8 min-h-screen">{children}</div>
+      <div style={{ flex: 1, overflowY: "auto" }}>
+        <div style={{ backgroundColor: "#0f172a", color: "white", padding: "32px", minHeight: "100vh" }}>
+          {children}
+        </div>
       </div>
     </div>
   );
