@@ -31,7 +31,7 @@ export default function DayCard({
   const toggleFavourite = useFavouritesStore((s) => s.toggle);
   const addItem = useCartStore((s) => s.addItem);
   const [showQuickView, setShowQuickView] = useState(false);
-  const hasVariants = food.variants.length > 0;
+  const hasVariants = (food.variants?.length ?? 0) > 0;
 
   function handleAdd() {
     if (hasVariants) {

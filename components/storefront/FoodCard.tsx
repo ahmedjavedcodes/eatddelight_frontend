@@ -27,7 +27,9 @@ export default function FoodCard({ food }: { food: Food }) {
   const addItem = useCartStore((s) => s.addItem);
   const [showQuickView, setShowQuickView] = useState(false);
 
-  const hasVariants = food.variants.length > 0;
+  // Favourites are persisted to localStorage; entries saved before variants
+  // existed on the Food type won't have this field at all.
+  const hasVariants = (food.variants?.length ?? 0) > 0;
 
   function handleAdd() {
     // Multiple sizes means multiple prices - the customer has to pick one,

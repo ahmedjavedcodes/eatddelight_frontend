@@ -15,10 +15,11 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
   const [quantity, setQuantity] = useState(food.min_order_quantity);
   const [selectedAddOns, setSelectedAddOns] = useState<number[]>([]);
   const [added, setAdded] = useState(false);
-  const hasVariants = food.variants.length > 0;
+  const variants = food.variants ?? [];
+  const hasVariants = variants.length > 0;
   const [selectedVariantId, setSelectedVariantId] = useState<number | null>(null);
   const selectedVariant = hasVariants
-    ? food.variants.find((v) => v.id === selectedVariantId)
+    ? variants.find((v) => v.id === selectedVariantId)
     : undefined;
 
   const hasMounted = useHasMounted();
@@ -97,7 +98,7 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
             <h2 className="font-heading font-semibold text-foreground">Choose a size</h2>
             <div className="mt-3">
               <VariantPicker
-                variants={food.variants}
+                variants={variants}
                 selectedId={selectedVariantId}
                 onSelect={setSelectedVariantId}
               />

@@ -19,10 +19,13 @@ export default function QuickViewModal({
   onClose: () => void;
 }) {
   const addItem = useCartStore((s) => s.addItem);
-  const hasVariants = food.variants.length > 0;
+  // Favourites are persisted to localStorage; entries saved before variants
+  // existed on the Food type won't have this field at all.
+  const variants = food.variants ?? [];
+  const hasVariants = variants.length > 0;
   const [selectedVariantId, setSelectedVariantId] = useState<number | null>(null);
   const selectedVariant = hasVariants
-    ? food.variants.find((v) => v.id === selectedVariantId)
+    ? variants.find((v) => v.id === selectedVariantId)
     : undefined;
 
   useEffect(() => {
@@ -113,7 +116,7 @@ export default function QuickViewModal({
               <div className="mt-4">
                 <p className="mb-2 text-sm font-medium text-foreground">Choose a size</p>
                 <VariantPicker
-                  variants={food.variants}
+                  variants={variants}
                   selectedId={selectedVariantId}
                   onSelect={setSelectedVariantId}
                 />
