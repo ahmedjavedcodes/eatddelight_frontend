@@ -20,6 +20,18 @@ export interface Category {
   is_active: boolean;
 }
 
+export interface FoodVariant {
+  id: number;
+  label: string;
+  price: string;
+  display_order: number;
+}
+
+export interface FoodVariantInput {
+  label: string;
+  price: string;
+}
+
 export interface Food {
   id: number;
   category_id: number;
@@ -32,6 +44,21 @@ export interface Food {
   is_single_serving: boolean;
   requires_advance_order: boolean;
   day_of_week: DayOfWeek | null;
+  variants: FoodVariant[];
+}
+
+export interface FoodInput {
+  category_id: number;
+  name: string;
+  description: string | null;
+  price: string;
+  image_url: string | null;
+  is_available: boolean;
+  min_order_quantity: number;
+  is_single_serving: boolean;
+  requires_advance_order: boolean;
+  day_of_week: DayOfWeek | null;
+  variants?: FoodVariantInput[] | null;
 }
 
 export interface AddOn {

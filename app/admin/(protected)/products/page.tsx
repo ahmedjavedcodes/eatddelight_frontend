@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuthStore } from "@/lib/store/auth";
 import { getFoods, getCategories, deleteFood } from "@/lib/api/admin";
 import { Food, Category } from "@/lib/api/types";
-import { Plus, Pencil, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertCircle, Search, X } from "lucide-react";
 import PageHeading from "@/components/storefront/PageHeading";
 import { formatPrice } from "@/lib/format";
 import ProductForm from "@/components/admin/ProductForm";
+
+type AvailabilityFilter = "all" | "available" | "unavailable";
 
 export default function ProductsPage() {
   const { token, isOwner } = useAuthStore();
@@ -18,6 +20,9 @@ export default function ProductsPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Food | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<number | "all">("all");
+  const [availabilityFilter, setAvailabilityFilter] = useState<AvailabilityFilter>("all");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,13 +81,43 @@ export default function ProductsPage() {
   const getCategoryName = (categoryId: number) =>
     categories.find((c) => c.id === categoryId)?.name || "Uncategorized";
 
+  const filteredProducts = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return products.filter((product) => {
+      if (query) {
+        const matchesQuery =
+          product.name.toLowerCase().includes(query) ||
+          (product.description?.toLowerCase().includes(query) ?? false);
+        if (!matchesQuery) return false;
+      }
+      if (categoryFilter !== "all" && product.category_id !== categoryFilter) {
+        return false;
+      }
+      if (availabilityFilter === "available" && !product.is_available) return false;
+      if (availabilityFilter === "unavailable" && product.is_available) return false;
+      return true;
+    });
+  }, [products, search, categoryFilter, availabilityFilter]);
+
+  const hasActiveFilters = search.trim() !== "" || categoryFilter !== "all" || availabilityFilter !== "all";
+
+  const clearFilters = () => {
+    setSearch("");
+    setCategoryFilter("all");
+    setAvailabilityFilter("all");
+  };
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <PageHeading eyebrow="Admin" title="Products" />
           <p className="mt-2 text-sm text-muted">
-            {loading ? "Loading…" : `${products.length} product${products.length !== 1 ? "s" : ""} on the menu`}
+            {loading
+              ? "Loading…"
+              : hasActiveFilters
+                ? `${filteredProducts.length} of ${products.length} product${products.length !== 1 ? "s" : ""}`
+                : `${products.length} product${products.length !== 1 ? "s" : ""} on the menu`}
           </p>
         </div>
         <button
@@ -95,6 +130,58 @@ export default function ProductsPage() {
           <Plus size={16} />
           Add Product
         </button>
+      </div>
+
+      {/* Search & filters */}
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="relative min-w-55 flex-1">
+          <Search
+            size={16}
+            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+          />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search products by name or description..."
+            className="w-full rounded-full border border-black/10 bg-white py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted/70 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+          />
+        </div>
+
+        <select
+          value={categoryFilter}
+          onChange={(e) =>
+            setCategoryFilter(e.target.value === "all" ? "all" : Number(e.target.value))
+          }
+          className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        >
+          <option value="all">All Categories</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={availabilityFilter}
+          onChange={(e) => setAvailabilityFilter(e.target.value as AvailabilityFilter)}
+          className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+        >
+          <option value="all">All Statuses</option>
+          <option value="available">Available</option>
+          <option value="unavailable">Unavailable</option>
+        </select>
+
+        {hasActiveFilters && (
+          <button
+            onClick={clearFilters}
+            className="flex items-center gap-1.5 rounded-full bg-tint px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-tint/70"
+          >
+            <X size={14} />
+            Clear
+          </button>
+        )}
       </div>
 
       {error && (
@@ -139,6 +226,16 @@ export default function ProductsPage() {
               Create your first product
             </button>
           </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="p-10 text-center">
+            <p className="text-sm text-muted">No products match your filters</p>
+            <button
+              onClick={clearFilters}
+              className="mt-2 text-sm font-semibold text-primary hover:text-primary-dark"
+            >
+              Clear filters
+            </button>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
@@ -153,7 +250,7 @@ export default function ProductsPage() {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {filteredProducts.map((product) => (
                   <tr
                     key={product.id}
                     className="border-b border-black/5 last:border-0 hover:bg-tint/20"
@@ -170,7 +267,17 @@ export default function ProductsPage() {
                       {getCategoryName(product.category_id)}
                     </td>
                     <td className="px-6 py-4 font-semibold text-foreground">
-                      {formatPrice(product.price)}
+                      {product.variants.length > 0 ? (
+                        <>
+                          From {formatPrice(product.price)}
+                          <span className="ml-1.5 rounded-full bg-tint px-2 py-0.5 text-xs font-medium text-primary-dark">
+                            {product.variants.length} size
+                            {product.variants.length !== 1 ? "s" : ""}
+                          </span>
+                        </>
+                      ) : (
+                        formatPrice(product.price)
+                      )}
                     </td>
                     <td className="px-6 py-4 text-muted">{product.min_order_quantity}</td>
                     <td className="px-6 py-4">

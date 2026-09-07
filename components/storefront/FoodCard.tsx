@@ -27,7 +27,16 @@ export default function FoodCard({ food }: { food: Food }) {
   const addItem = useCartStore((s) => s.addItem);
   const [showQuickView, setShowQuickView] = useState(false);
 
+  const hasVariants = food.variants.length > 0;
+
   function handleAdd() {
+    // Multiple sizes means multiple prices - the customer has to pick one,
+    // so route the "quick add" button through Quick View's size picker
+    // instead of guessing a price here.
+    if (hasVariants) {
+      setShowQuickView(true);
+      return;
+    }
     addItem({
       foodId: food.id,
       name: food.name,
@@ -88,20 +97,17 @@ export default function FoodCard({ food }: { food: Food }) {
             From {formatPrice(food.price)}
           </span>
           <button
-            aria-label="Add to cart"
+            aria-label={hasVariants ? "Choose a size" : "Add to cart"}
             onClick={handleAdd}
             disabled={!food.is_available}
             className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:h-auto sm:w-auto sm:px-4 sm:py-2"
           >
             <Plus size={16} className="sm:hidden" />
-            <span className="hidden text-xs font-semibold sm:inline">Add to Cart</span>
+            <span className="hidden text-xs font-semibold sm:inline">
+              {hasVariants ? "Choose Size" : "Add to Cart"}
+            </span>
           </button>
         </div>
-        {!food.is_available && (
-          <span className="mt-1 text-xs font-medium text-primary">
-            Currently unavailable
-          </span>
-        )}
       </div>
 
       {showQuickView && (

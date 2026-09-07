@@ -1,5 +1,5 @@
 import { apiFetch, ApiError } from "./client";
-import { Category, Food, AddOn } from "./types";
+import { Category, Food, FoodInput, AddOn } from "./types";
 
 // Categories
 export async function getCategories(token: string): Promise<Category[]> {
@@ -41,10 +41,7 @@ export async function getFoods(token: string): Promise<Food[]> {
   return apiFetch<Food[]>("/admin/foods", { token });
 }
 
-export async function createFood(
-  token: string,
-  data: Omit<Food, "id">,
-): Promise<Food> {
+export async function createFood(token: string, data: FoodInput): Promise<Food> {
   return apiFetch<Food>("/admin/foods", {
     method: "POST",
     token,
@@ -55,7 +52,7 @@ export async function createFood(
 export async function updateFood(
   token: string,
   id: number,
-  data: Partial<Omit<Food, "id">>,
+  data: Partial<FoodInput>,
 ): Promise<Food> {
   return apiFetch<Food>(`/admin/foods/${id}`, {
     method: "PUT",
@@ -68,6 +65,17 @@ export async function deleteFood(token: string, id: number): Promise<void> {
   return apiFetch<void>(`/admin/foods/${id}`, {
     method: "DELETE",
     token,
+  });
+}
+
+// Image uploads (product photos) - up to 5MB, JPEG/PNG/WEBP.
+export async function uploadImage(token: string, file: File): Promise<{ url: string }> {
+  const formData = new FormData();
+  formData.append("file", file);
+  return apiFetch<{ url: string }>("/admin/uploads/image", {
+    method: "POST",
+    token,
+    body: formData,
   });
 }
 

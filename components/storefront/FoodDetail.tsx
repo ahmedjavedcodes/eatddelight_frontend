@@ -9,11 +9,17 @@ import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
 import QuantityStepper from "@/components/storefront/QuantityStepper";
+import VariantPicker from "@/components/storefront/VariantPicker";
 
 export default function FoodDetail({ food }: { food: FoodDetailType }) {
   const [quantity, setQuantity] = useState(food.min_order_quantity);
   const [selectedAddOns, setSelectedAddOns] = useState<number[]>([]);
   const [added, setAdded] = useState(false);
+  const hasVariants = food.variants.length > 0;
+  const [selectedVariantId, setSelectedVariantId] = useState<number | null>(null);
+  const selectedVariant = hasVariants
+    ? food.variants.find((v) => v.id === selectedVariantId)
+    : undefined;
 
   const hasMounted = useHasMounted();
   const isFavouritePersisted = useFavouritesStore((s) => s.isFavourite(food.id));
@@ -30,10 +36,13 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
   }
 
   function handleAdd() {
+    if (hasVariants && !selectedVariant) return;
+
     addItem({
       foodId: food.id,
-      name: food.name,
-      unitPrice: Number(food.price),
+      variantId: selectedVariant?.id,
+      name: selectedVariant ? `${food.name} (${selectedVariant.label})` : food.name,
+      unitPrice: selectedVariant ? Number(selectedVariant.price) : Number(food.price),
       quantity,
       minOrderQuantity: food.min_order_quantity,
       addOns: availableAddOns
@@ -80,8 +89,21 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
         </h1>
         {food.description && <p className="mt-3 text-muted">{food.description}</p>}
         <p className="mt-4 text-2xl font-bold text-primary">
-          {formatPrice(food.price)}
+          {selectedVariant ? formatPrice(selectedVariant.price) : formatPrice(food.price)}
         </p>
+
+        {hasVariants && (
+          <div className="mt-4">
+            <h2 className="font-heading font-semibold text-foreground">Choose a size</h2>
+            <div className="mt-3">
+              <VariantPicker
+                variants={food.variants}
+                selectedId={selectedVariantId}
+                onSelect={setSelectedVariantId}
+              />
+            </div>
+          </div>
+        )}
 
         {!food.is_available && (
           <p className="mt-2 text-sm font-semibold text-primary">
@@ -135,10 +157,14 @@ export default function FoodDetail({ food }: { food: FoodDetailType }) {
 
         <button
           onClick={handleAdd}
-          disabled={!food.is_available}
+          disabled={!food.is_available || (hasVariants && !selectedVariant)}
           className="mt-6 w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted sm:w-auto sm:text-base"
         >
-          {added ? "Added to Cart ✓" : "Add to Cart"}
+          {added
+            ? "Added to Cart ✓"
+            : hasVariants && !selectedVariant
+              ? "Select a size"
+              : "Add to Cart"}
         </button>
       </div>
     </section>

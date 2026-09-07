@@ -2,12 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 import { Heart, Plus } from "lucide-react";
 import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { useFavouritesStore } from "@/lib/store/favourites";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
+
+const QuickViewModal = dynamic(
+  () => import("@/components/storefront/QuickViewModal"),
+  { ssr: false },
+);
 
 export default function DayCard({
   day,
@@ -23,8 +30,14 @@ export default function DayCard({
   const isFavourite = hasMounted && isFavouritePersisted;
   const toggleFavourite = useFavouritesStore((s) => s.toggle);
   const addItem = useCartStore((s) => s.addItem);
+  const [showQuickView, setShowQuickView] = useState(false);
+  const hasVariants = food.variants.length > 0;
 
   function handleAdd() {
+    if (hasVariants) {
+      setShowQuickView(true);
+      return;
+    }
     addItem({
       foodId: food.id,
       name: food.name,
@@ -90,6 +103,10 @@ export default function DayCard({
           </div>
         </div>
       </div>
+
+      {showQuickView && (
+        <QuickViewModal food={food} onClose={() => setShowQuickView(false)} />
+      )}
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Trash2 } from "lucide-react";
 import QuantityStepper from "@/components/storefront/QuantityStepper";
-import { cartLineTotal, useCartStore } from "@/lib/store/cart";
+import { cartLineKey, cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
 
 export default function CartPage() {
@@ -42,7 +42,7 @@ export default function CartPage() {
           const belowMinimum = line.quantity < line.minOrderQuantity;
           return (
             <div
-              key={line.foodId}
+              key={cartLineKey(line)}
               className="rounded-xl border border-black/10 p-4"
             >
               <div className="flex items-start justify-between gap-4">
@@ -63,7 +63,7 @@ export default function CartPage() {
                 </div>
                 <button
                   aria-label="Remove item"
-                  onClick={() => removeItem(line.foodId)}
+                  onClick={() => removeItem(line.foodId, line.variantId)}
                   className="text-muted hover:text-primary"
                 >
                   <Trash2 size={18} />
@@ -74,7 +74,7 @@ export default function CartPage() {
                 <QuantityStepper
                   value={line.quantity}
                   min={line.minOrderQuantity}
-                  onChange={(next) => setQuantity(line.foodId, next)}
+                  onChange={(next) => setQuantity(line.foodId, next, line.variantId)}
                 />
                 <span className="font-semibold text-foreground">
                   {formatPrice(cartLineTotal(line))}

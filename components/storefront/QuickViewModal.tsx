@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import type { Food } from "@/lib/api/types";
 import { formatPrice } from "@/lib/format";
 import { useCartStore } from "@/lib/store/cart";
 import { startScroll, stopScroll } from "@/components/LocomotiveScrollProvider";
+import VariantPicker from "@/components/storefront/VariantPicker";
 
 export default function QuickViewModal({
   food,
@@ -18,6 +19,11 @@ export default function QuickViewModal({
   onClose: () => void;
 }) {
   const addItem = useCartStore((s) => s.addItem);
+  const hasVariants = food.variants.length > 0;
+  const [selectedVariantId, setSelectedVariantId] = useState<number | null>(null);
+  const selectedVariant = hasVariants
+    ? food.variants.find((v) => v.id === selectedVariantId)
+    : undefined;
 
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
@@ -34,10 +40,13 @@ export default function QuickViewModal({
   }, [onClose]);
 
   function handleAdd() {
+    if (hasVariants && !selectedVariant) return;
+
     addItem({
       foodId: food.id,
-      name: food.name,
-      unitPrice: Number(food.price),
+      variantId: selectedVariant?.id,
+      name: selectedVariant ? `${food.name} (${selectedVariant.label})` : food.name,
+      unitPrice: selectedVariant ? Number(selectedVariant.price) : Number(food.price),
       quantity: food.min_order_quantity,
       minOrderQuantity: food.min_order_quantity,
       addOns: [],
@@ -97,8 +106,19 @@ export default function QuickViewModal({
             )}
 
             <div className="mt-4 text-lg font-semibold text-primary">
-              From {formatPrice(food.price)}
+              {selectedVariant ? formatPrice(selectedVariant.price) : `From ${formatPrice(food.price)}`}
             </div>
+
+            {hasVariants && (
+              <div className="mt-4">
+                <p className="mb-2 text-sm font-medium text-foreground">Choose a size</p>
+                <VariantPicker
+                  variants={food.variants}
+                  selectedId={selectedVariantId}
+                  onSelect={setSelectedVariantId}
+                />
+              </div>
+            )}
 
             <div className="mt-3 space-y-1 text-xs text-muted">
               <p>Minimum order quantity: {food.min_order_quantity}</p>
@@ -113,10 +133,10 @@ export default function QuickViewModal({
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <button
                 onClick={handleAdd}
-                disabled={!food.is_available}
+                disabled={!food.is_available || (hasVariants && !selectedVariant)}
                 className="flex-1 rounded-full text-sm bg-primary px-3 py-2 font-semibold text-white transition hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-muted"
               >
-                Add to Cart
+                {hasVariants && !selectedVariant ? "Select a size" : "Add to Cart"}
               </button>
               <Link
                 href={`/food/${food.id}`}

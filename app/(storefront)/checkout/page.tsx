@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { MessageCircle } from "lucide-react";
-import { cartLineTotal, useCartStore } from "@/lib/store/cart";
+import { cartLineKey, cartLineTotal, useCartStore } from "@/lib/store/cart";
 import { formatPrice } from "@/lib/format";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
         ) : (
           <div className="mt-3 space-y-2">
             {lines.map((line) => (
-              <div key={line.foodId} className="flex justify-between text-sm">
+              <div key={cartLineKey(line)} className="flex justify-between text-sm">
                 <span>
                   {line.quantity} × {line.name}
                 </span>
